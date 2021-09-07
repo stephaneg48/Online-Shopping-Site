@@ -1,2 +1,3 @@
-# it202-009
-Fall 2021
+#IT202-009 - Internet Applications
+##Stephane Gilles
+###BS CS Student @ NJIT
