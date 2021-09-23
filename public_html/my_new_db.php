@@ -30,4 +30,12 @@ $z = 0.3;
 var_export($z);
 echo "<br>";
 var_dump($myDict);
+
+$a = 0;
+$b = 1.0;
+for ($i = 0; $i < 10; $i++) {
+    $a += 0.1;
+}
+echo ((round($a) === $b) ? "yes" : "no");
+
 ?>
