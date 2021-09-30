@@ -7,22 +7,18 @@
     <script>
         window.addEventListener("load", () => {
             console.log("loaded via javascript");
+            
             //TODO: add any extra onload processing you may need here
         });
+        
+
+        /* updateCurrentPage(x[1]); */ /* this will end up taking a string */
+        
         function getCurrentSelection() {
             setTimeout(() => {
                 //added this delay here as some solutions may require it to update properly (i.e., click code may complete before the navigation changes)
                 //TODO: add code for processing the current selection
-                var x = document.querySelectorAll("nav > ul > li > a"); /* finds each element in the list of navigation button */
-                x[3].style.backgroundColor = "red";
-                for (let i = 0; i < x.length; i++)
-                {
-                    x[i].style.backgroundColor = "red";
-                    console.log("made ", x[i], " red");
-                    x[i].onclick = console.log("added onclick to " , x[i]);
-                }
-
-                updateCurrentPage();
+                
                 //Note: likely you'll want to call updateCurrentPage towards the end
             }, 100);
         }
