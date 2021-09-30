@@ -20,20 +20,48 @@
     </script>
     <style>
         /* TODO: make edits here */
+
+        body {
+            /* just choosing a color... */
+            background-color:rgb(194, 255, 194);
+        }
+
         nav ul li { 
-            /* finds the links in a certain unordered
+            /* selects the links in a certain unordered
             list in some navigation
             (could specify it is in the body) */
 
             display: inline; /* this should make the navigation horizontal */
-        } 
-        ul {
-            /* finds only unordered lists 
-            in the body */
+            background-color:gold;
+            list-style-type:none; /* probably redundant? */
             
-            list-style-type:none;
+        } 
+
+        nav ul li:hover {
+            /* same selection, but makes it
+            do something on mouseover */
+            background-color:khaki;
+        }
+
+        ul {
+            /* selects only unordered lists 
+            in the body */
+
+            list-style-type:"✓"; 
+
+            /* makes the markers checkmarks */
+
         }
         
+        h1::first-letter {
+            text-transform: uppercase;
+        }
+
+        nav ul li a {
+            text-transform: capitalize;
+            /* probably not the intended solution? */
+        }
+
         
     </style>
     <!-- make the necessary edits above this line -->
