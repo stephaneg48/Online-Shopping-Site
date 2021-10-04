@@ -7,18 +7,25 @@
     <script>
         window.addEventListener("load", () => {
             console.log("loaded via javascript");
-            
-            //TODO: add any extra onload processing you may need here
+            //DONE: add any extra onload processing you may need here
         });
-        
-
-        /* updateCurrentPage(x[1]); */ /* this will end up taking a string */
         
         function getCurrentSelection() {
             setTimeout(() => {
                 //added this delay here as some solutions may require it to update properly (i.e., click code may complete before the navigation changes)
-                //TODO: add code for processing the current selection
-                
+                //DONE: add code for processing the current selection
+            var navList = document.querySelectorAll("nav > ul > li > a")
+            // finds each element in the list of navigation buttons
+            for (let i = 0; i < navList.length; i++) 
+            {
+                navList[i].addEventListener("click", function() 
+                {
+                    word = navList[i].innerHTML; // gets word from li element
+                    // console.log("clicked the ", navList[i].innerHTML, " button");
+                    // above line is just to test
+                    updateCurrentPage(word); // sends word
+                });
+            }
                 //Note: likely you'll want to call updateCurrentPage towards the end
             }, 100);
         }
@@ -26,7 +33,7 @@
         getCurrentSelection();
     </script>
     <style>
-        /* TODO: make edits here */
+        /* DONE: make edits here */
 
         body {
             /* just choosing a color... */
@@ -66,7 +73,7 @@
 
         nav ul li a {
             text-transform: capitalize;
-            /* probably not the intended solution? */
+            /* works, but probably not the intended solution? */
         }
 
         
