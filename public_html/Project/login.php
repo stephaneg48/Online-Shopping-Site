@@ -23,7 +23,7 @@ require(__DIR__ . "/../../partials/nav.php");
 </script>
 <?php
  //TODO 2: add PHP Code
- if(isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm"]))
+ if(isset($_POST["email"]) && isset($_POST["password"])) // note: left the isset for confirm here by accident
  {
      $email = se($_POST, "email", "", false);
      $password = se($_POST, "password", "", false);
@@ -34,9 +34,9 @@ require(__DIR__ . "/../../partials/nav.php");
          array_push($errors, "Email must be set");
      }
      // sanitize
-     $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+     $email = sanitize_email($email);
      // validate
-     if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+     if (!is_valid_email($email))
      {
          array_push($errors, "Invalid email address");
      }
@@ -80,6 +80,8 @@ require(__DIR__ . "/../../partials/nav.php");
                      if (password_verify($password, $hash))
                      {
                          echo "Welcome, $email";
+                         $_SESSION["user"] = $user;
+                         die(header("Location: home.php"));
                      }
                      else
                      {
