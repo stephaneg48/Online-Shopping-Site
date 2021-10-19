@@ -74,7 +74,7 @@ require(__DIR__ . "/../../partials/nav.php");
          // flash("Welcome, $email!");
          // lookup user by email, then select pw bc MySQL cannot do comparison
          $db = getDB();
-         $stmt = $db->prepare("SELECT email, password FROM Users WHERE email = :email");
+         $stmt = $db->prepare("SELECT id, email, username, password FROM Users WHERE email = :email");
          try 
          {
              $r = $stmt->execute([":email"=> $email]);

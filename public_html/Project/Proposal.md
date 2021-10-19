@@ -1,9 +1,9 @@
-# Project Name: (Which Project)
-## Project Summary: (Copy from proposal)
+# Project Name: Simple Shop
+## Project Summary: This project will create a simple e-commerce site for users. Administrators or store owners will be able to manage inventory and users will be able to manage their cart and place orders.
 ## Github Link: (Prod Branch of Project Folder)
-## Project Board Link: 
+## Project Board Link: https://github.com/stephaneg48/it202-009/projects/1
 ## Website Link: (Heroku Prod of Project folder)
-## Your Name:
+## Your Name: Stephane Gilles
 
 <!--
 ### Line item / Feature template (use this for each bullet point)
@@ -23,8 +23,6 @@
 ### Proposal Checklist and Evidence
 
 - Milestone 1
-### Line item / Feature template (use this for each bullet point)
-#### Don't delete this
 
   - [ ] (mm/dd/yyyy of completion) User will be able to register a new account
     -  List of Evidence of Feature Completion
@@ -35,10 +33,6 @@
       - Screenshots
         - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
           - Screenshot #1 description explaining what you're trying to show
-  ### End Line item / Feature Template
-
-  ### Line item / Feature template (use this for each bullet point)
-  #### Don't delete this
 
   - [ ] (mm/dd/yyyy of completion) User will be able to login to their account (given they enter the correct credentials)
     -  List of Evidence of Feature Completion
@@ -49,10 +43,6 @@
       - Screenshots
         - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
           - Screenshot #1 description explaining what you're trying to show
-  ### End Line item / Feature Template
-
-  ### Line item / Feature template (use this for each bullet point)
-  #### Don't delete this
 
   - [ ] (mm/dd/yyyy of completion) User will be able to logout
     -  List of Evidence of Feature Completion
@@ -63,10 +53,6 @@
       - Screenshots
         - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
           - Screenshot #1 description explaining what you're trying to show
-  ### End Line item / Feature Template
-
-  ### Line item / Feature template (use this for each bullet point)
-  #### Don't delete this
 
   - [ ] (mm/dd/yyyy of completion) Basic security rules implemented
     -  List of Evidence of Feature Completion
@@ -77,10 +63,6 @@
       - Screenshots
         - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
           - Screenshot #1 description explaining what you're trying to show
-  ### End Line item / Feature Template
-
-  ### Line item / Feature template (use this for each bullet point)
-  #### Don't delete this
 
   - [ ] (mm/dd/yyyy of completion) Basic Roles implemented
     -  List of Evidence of Feature Completion
@@ -91,10 +73,6 @@
       - Screenshots
         - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
           - Screenshot #1 description explaining what you're trying to show
-  ### End Line item / Feature Template
-
-  ### Line item / Feature template (use this for each bullet point)
-  #### Don't delete this
 
   - [ ] (mm/dd/yyyy of completion) Site should have basic styles/theme applied; everything should be styled
     -  List of Evidence of Feature Completion
@@ -105,10 +83,6 @@
       - Screenshots
         - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
           - Screenshot #1 description explaining what you're trying to show
-  ### End Line item / Feature Template
-
-  ### Line item / Feature template (use this for each bullet point)
-  #### Don't delete this
 
   - [ ] (mm/dd/yyyy of completion) Any output messages/errors should be “user friendly”
     -  List of Evidence of Feature Completion
@@ -119,7 +93,6 @@
       - Screenshots
         - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
           - Screenshot #1 description explaining what you're trying to show
-  ### End Line item / Feature Template
 
   - [ ] (mm/dd/yyyy of completion) User will be able to see their profile
     -  List of Evidence of Feature Completion
@@ -130,7 +103,6 @@
       - Screenshots
         - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
           - Screenshot #1 description explaining what you're trying to show
-  ### End Line item / Feature Template
 
   - [ ] (mm/dd/yyyy of completion) User will be able to edit their profile
     -  List of Evidence of Feature Completion
@@ -141,7 +113,6 @@
       - Screenshots
         - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
           - Screenshot #1 description explaining what you're trying to show
-  ### End Line item / Feature Template
 
 - Milestone 2
 
