@@ -4,6 +4,7 @@
     <script>
         //modified from http://jsfiddle.net/bencentra/q1s8gmqv/?utm_source=website&utm_medium=embed&utm_campaign=q1s8gmqv
        
+        let isSwapped = false;
         var canvas;
         var context;
         var loop;
@@ -145,25 +146,67 @@
             };
         }
         function doAI() {
-            if (ball.x >= canvas.width * visibilityPercent) {
-                let paddleHalf = paddleHeight / 2;
-
-                if (ball.y > rightPaddle.y + paddleHalf) {
-                    rightPaddle.y += rightPaddle.s;
-                } else if (ball.y < rightPaddle.y) {
-                    rightPaddle.y -= rightPaddle.s;
+            // if the AI's score is higher, stay the same
+            {
+                if (ball.x >= canvas.width * visibilityPercent) 
+                {
+                    let paddleHalf = paddleHeight / 2;
+                    if (!isSwapped)
+                    {
+                        if (ball.y > rightPaddle.y + paddleHalf) 
+                        {
+                            rightPaddle.y += rightPaddle.s;
+                        } 
+                        else if (ball.y < rightPaddle.y) 
+                        {
+                            rightPaddle.y -= rightPaddle.s;
+                        }
+                        // clampToCanvas(rightPaddle);
+                    }  
+                    else
+                    {
+                        if (ball.y > leftPaddle.y + paddleHalf) 
+                        {
+                            leftPaddle.y += leftPaddle.s;
+                        } 
+                        else if (ball.y < leftPaddle.y) 
+                        {
+                            leftPaddle.y -= leftPaddle.s;
+                        }
+                        // clampToCanvas(leftPaddle);
+                    } 
                 }
             }
-            clampToCanvas(rightPaddle);
+            
         }
         function movePaddle() {
+            // look at score and see if left > right
+            // if left > right, keep the controls on the left paddle and constrain it to the screen
+            // if right > left, switch the controls to the right paddle and constrain it to the screen
+            // ... at game start, what if left score equals right score?
+            // default to left ( >= )?
             if (keys.W || keys.UP) {
-                leftPaddle.y -= leftPaddle.s; // -y is up
-            }
+                if (!isSwapped)
+                {
+                    leftPaddle.y -= leftPaddle.s;
+                }
+                else
+                {
+                    rightPaddle.y -= rightPaddle.s;
+                }
+             } // -y is up
             if (keys.S || keys.DOWN) {
-                leftPaddle.y += leftPaddle.s; // +y is down
+                if (!isSwapped)
+                {
+                    leftPaddle.y += leftPaddle.s;
+                }
+                else
+                {
+                    rightPaddle.y += rightPaddle.s;
+                }
+                // +y is down
             }
-            clampToCanvas(leftPaddle);
+            // clampToCanvas(leftPaddle);
         }
         function clampToCanvas(paddle) {
             if (paddle.y < 0) {
@@ -202,12 +245,26 @@
             // Score if the ball goes past a paddle
             //left side of ball passes left side of paddle
             if (ball.x < leftPaddle.x) {
-                rightScore++;
+                if (!isSwapped)
+                {
+                    rightScore++;
+                }
+                else
+                {
+                    leftScore++;
+                }
                 resetBall();
             }
             //right side of ball passes right side of paddle 
             else if (ball.x + ball.w > rightPaddle.x + rightPaddle.w) {
-                leftScore++;
+                if (!isSwapped)
+                {
+                    leftScore++;
+                }
+                else
+                {
+                    rightScore++;
+                }
                 resetBall();
             }
         }
@@ -231,10 +288,14 @@
             erase();
             movePaddle();
             doAI();
+            
             moveBall();
+            clampToCanvas(leftPaddle);
+            clampToCanvas(rightPaddle);
 
             checkPaddleCollision();
             checkScore();
+            isSwapped = leftScore < rightScore;
             drawScores();
             //draw stuff
             for (let i = 0; i < drawables.length; i++) {
