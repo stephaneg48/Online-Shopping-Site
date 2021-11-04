@@ -231,13 +231,21 @@
             if (ballcY >= leftPaddle.y && ballcY <= leftPaddle.y + leftPaddle.h) {
                 //left side of ball passes right side of paddle
                 if (ball.x <= leftPaddle.x + leftPaddle.w) {
+                    const randomColor = Math.floor(Math.random()*0xFFFFFF).toString(16);
+                    // 16 - hexadecimal size
+                    // Math.random generates a float between 0.0 and 1.0
                     bounceBall();
+                    leftPaddle.c = "#" + randomColor;
                 }
             }
             if (ballcY >= rightPaddle.y && ballcY <= rightPaddle.y + rightPaddle.h) {
                 //right side of ball passes left side of paddle
                 if (ball.x + ball.w >= rightPaddle.x) {
+                    const randomColor = Math.floor(Math.random()*0xFFFFFF).toString(16);
+                    // 16 - hexadecimal size
+                    // Math.random generates a float between 0.0 and 1.0
                     bounceBall();
+                    rightPaddle.c = "#" + randomColor;
                 }
             }
         }
