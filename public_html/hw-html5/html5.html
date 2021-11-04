@@ -151,7 +151,7 @@
                 if (ball.x >= canvas.width * visibilityPercent) 
                 {
                     let paddleHalf = paddleHeight / 2;
-                    if (!isSwapped)
+                    if (!isSwapped && ball.x >= canvas.width * visibilityPercent)
                     {
                         if (ball.y > rightPaddle.y + paddleHalf) 
                         {
@@ -163,7 +163,7 @@
                         }
                         // clampToCanvas(rightPaddle);
                     }  
-                    else
+                    if (isSwapped && ball.x >= canvas.width * (1 - visibilityPercent))
                     {
                         if (ball.y > leftPaddle.y + paddleHalf) 
                         {
