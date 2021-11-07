@@ -1,0 +1,26 @@
+body
+{
+    background-color: rgb(171, 244, 253);
+}
+
+nav ul li { 
+    /* selects the links in a certain unordered
+    list in some navigation
+    (could specify it is in the body) */
+
+    display: inline; /* this should make the navigation horizontal */
+    background-color:white;
+    border-style:solid;
+    border-width:1px;
+    border-radius: 5px;
+    margin:10px;
+    padding:5px;
+    list-style-type:none; /* probably redundant? */
+    
+}
+
+nav ul li:hover {
+    /* same selection, but makes it
+    do something on mouseover */
+    background-color:khaki;
+}
