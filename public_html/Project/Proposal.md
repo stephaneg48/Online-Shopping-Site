@@ -35,6 +35,9 @@
           - Screenshot #1 description: Shows basic registration page with required forms filled in
         - Screenshot #2: ![image](https://user-images.githubusercontent.com/90262925/140638276-db57534d-41a8-47dd-afc8-7b08156d9310.png)
           - Screenshot #2 description: Same page after clicking "Register", verification message on top of Email form confirms successful registration
+        - Screenshot #3: ![image](https://user-images.githubusercontent.com/90262925/140995528-2b37cf3b-36b8-461d-94a2-1f7175b0e0ae.png)
+          - Screenshot #3 description: Same page after clicking "Register" for a user that has attempted to register with an unavailable username; error message displays on top, but email and username forms do not clear so the user knows what was previously put in
+          - ## Please see the first commit to the Feat-ProductsTable branch or the most recent commit to the Milestone1 branch for any concerns on why the page's appearance differs from any of the other screenshots.
 
   - [x] (10/7/2021) User will be able to login to their account (given they enter the correct credentials)
     -  List of Evidence of Feature Completion
