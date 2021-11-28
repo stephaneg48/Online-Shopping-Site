@@ -56,24 +56,25 @@ if (isset($_POST["name"]) && isset($_POST["description"]) && isset($_POST["categ
 <form method="POST">
     <div>
         <label for="name">Name</label>
-        <input id="name" name="name" value="<?php se($name); ?>"/><br><br>
+        <input type="text" id="name" name="name" value="<?php se($name); ?>"/><br><br>
          <!-- for and id have to match so the user can select the field from the name -->
     </div>
     <div>
         <label for="d">Description</label>
-        <textarea name="description" id="d" value="<?php se($desc); ?>"></textarea><br><br>
+        <input type="text" name="description" id="d" value="<?php se($desc); ?>"></input><br><br>
+        <!-- wanted to use textarea instead of input, but it clears on refresh even with the fix -->
     </div>
     <div>
         <label for="cat">Category</label>
-        <input id="cat" name="category" value="<?php se($cat); ?>"></input><br><br>
+        <input type="text" id="cat" name="category" value="<?php se($cat); ?>"></input><br><br>
     </div>
     <div>
         <label for="stock">Stock</label>
-        <input id="stock" name="stock" value="<?php se($stock); ?>"></input><br><br>
+        <input type="number" max="999" id="stock" name="stock" value="<?php se($stock); ?>"></input><br><br>
     </div>
     <div>
         <label for="cost">Unit Price</label>
-        <input id="cost" name="cost" value="<?php se($cost); ?>"></input><br><br>
+        <input type="number" max="99999" id="cost" name="cost" value="<?php se($cost); ?>"></input><br><br>
     </div>
 
 
