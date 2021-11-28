@@ -2,12 +2,10 @@
 //note we need to go up 1 more directory
 require(__DIR__ . "/../../../partials/nav.php");
 
-if (!has_role("Admin") || !has_role("Shop Owner")) {
+if ( !has_role("Admin") && !has_role("Shop Owner"))  {
     flash("You don't have permission to view this page", "warning");
     die(header("Location: $BASE_PATH" . "home.php"));
 }
-
-// ...
 
 if (isset($_POST["name"]) && isset($_POST["description"]) && isset($_POST["category"]) && isset($_POST["stock"]) && isset($_POST["cost"])) {
     $name = se($_POST, "name", "", false);
@@ -58,19 +56,19 @@ if (isset($_POST["name"]) && isset($_POST["description"]) && isset($_POST["categ
     </div>
     <div>
         <label for="d">Description</label>
-        <textarea name="description" id="d"></textarea><br><br>
+        <textarea name="description" id="d"  ></textarea><br><br>
     </div>
     <div>
         <label for="cat">Category</label>
-        <input id="cat" name="category"></input><br><br>
+        <input id="cat" name="category"  ></input><br><br>
     </div>
     <div>
         <label for="stock">Stock</label>
-        <input id="stock" name="stock" required ></input><br><br>
+        <input id="stock" name="stock"  ></input><br><br>
     </div>
     <div>
         <label for="cost">Unit Price</label>
-        <input id="cost" name="cost" required ></input><br><br>
+        <input id="cost" name="cost"  ></input><br><br>
     </div>
 
 
