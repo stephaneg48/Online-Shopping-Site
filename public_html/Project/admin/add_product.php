@@ -2,7 +2,7 @@
 //note we need to go up 1 more directory
 require(__DIR__ . "/../../../partials/nav.php");
 
-if (!has_role("Admin")) {
+if (!has_role("Admin") || !has_role("Shop Owner")) {
     flash("You don't have permission to view this page", "warning");
     die(header("Location: $BASE_PATH" . "home.php"));
 }
@@ -17,7 +17,21 @@ if (isset($_POST["name"]) && isset($_POST["description"]) && isset($_POST["categ
     $cost = se($_POST, "cost", "", false);
     if (empty($name)) {
         flash("Name is required", "warning"); 
-    } else {
+    } 
+    elseif(empty($desc)) {
+        flash("Product must have a description", "warning");
+    }
+    elseif(empty($cat)) {
+        flash("Product must be labeled under a new or existing category", "warning");
+    }
+    elseif(empty($stock)) {
+        flash("New products must have a stock value", "warning");
+    }
+    elseif(empty($cost)) {
+        flash("Product must have a cost", "warning");
+    }
+    else 
+    {
         $db = getDB();
         $stmt = $db->prepare("INSERT INTO Products (name, description, category, stock, unit_price, visibility) VALUES(:name, :desc, :cat, :stock, :cost, 1)");
         try {
