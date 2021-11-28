@@ -1,6 +1,11 @@
 <?php
 //note we need to go up 1 more directory
 require(__DIR__ . "/../../../partials/nav.php");
+$name = se($_POST, "name", "", false);
+$desc = se($_POST, "description", "", false);
+$cat = se($_POST, "category", "", false);
+$stock = se($_POST, "stock", "", false);
+$cost = se($_POST, "cost", "", false);
 
 if ( !has_role("Admin") && !has_role("Shop Owner"))  {
     flash("You don't have permission to view this page", "warning");
@@ -51,24 +56,24 @@ if (isset($_POST["name"]) && isset($_POST["description"]) && isset($_POST["categ
 <form method="POST">
     <div>
         <label for="name">Name</label>
-        <input id="name" name="name" required /><br><br>
+        <input id="name" name="name" value="<?php se($name); ?>"/><br><br>
          <!-- for and id have to match so the user can select the field from the name -->
     </div>
     <div>
         <label for="d">Description</label>
-        <textarea name="description" id="d"  ></textarea><br><br>
+        <textarea name="description" id="d" value="<?php se($desc); ?>"></textarea><br><br>
     </div>
     <div>
         <label for="cat">Category</label>
-        <input id="cat" name="category"  ></input><br><br>
+        <input id="cat" name="category" value="<?php se($cat); ?>"></input><br><br>
     </div>
     <div>
         <label for="stock">Stock</label>
-        <input id="stock" name="stock"  ></input><br><br>
+        <input id="stock" name="stock" value="<?php se($stock); ?>"></input><br><br>
     </div>
     <div>
         <label for="cost">Unit Price</label>
-        <input id="cost" name="cost"  ></input><br><br>
+        <input id="cost" name="cost" value="<?php se($cost); ?>"></input><br><br>
     </div>
 
 
