@@ -7,35 +7,52 @@ if (!has_role("Admin") && !has_role("Shop Owner")) {
     die(header("Location: $BASE_PATH" . "home.php"));
 }
 //handle the toggle first so select pulls fresh data
-if (isset($_POST["role_id"])) {
-    $role_id = se($_POST, "role_id", "", false);
-    if (!empty($role_id)) {
+if ( isset($_POST["prod_name"]) || 
+    isset($_POST["desc"]) || 
+    isset($_POST["cat"]) || 
+    isset($_POST["stock"]) || 
+    isset($_POST["unit_price"]) || 
+    isset($_POST["visible"]) ) 
+    {
+    $prod_name = se($_POST, "prod_name", "", false);
+    $desc = se($_POST, "desc", "", false);
+    $cat = se($_POST, "cat", "", false);
+    $stock = se($_POST, "stock", 0, false);
+    $cost = se($_POST, "unit_price", 99999, false);
+    $visible = se($_POST, "visible", 0, false);
+    if (!empty($prod_name) && !empty($desc) && !empty($cat) && $stock >= 0 && $unit_price >= 0 && ($visible == 1 || $visible == 0)) 
+    {
         $db = getDB();
-        $stmt = $db->prepare("UPDATE Roles SET is_active = !is_active WHERE id = :rid");
+        $stmt = $db->prepare("UPDATE Products SET name = $prod_name, 
+        description = $desc, 
+        category = $cat, 
+        stock = $stock, 
+        unit_price = $cost,
+        visibility = $visible WHERE id = :id");
         try {
-            $stmt->execute([":rid" => $role_id]);
-            flash("Updated Role", "success");
+            $stmt->execute([":id" => $prod_name]);
+            flash("Updated Product", "success");
         } catch (PDOException $e) {
             flash(var_export($e->errorInfo, true), "danger");
         }
     }
 }
-$query = "SELECT id, name, description, is_active from Roles";
+$query = "SELECT id, name, description, category, stock, unit_price, visibility from Products";
 $params = null;
-if (isset($_POST["role"])) {
-    $search = se($_POST, "role", "", false);
-    $query .= " WHERE name LIKE :role";
-    $params =  [":role" => "%$search%"];
+if (isset($_POST["name"])) {
+    $search = se($_POST, "name", "", false);
+    $query .= " WHERE name LIKE :name";
+    $params =  [":name" => "%$search%"];
 }
 $query .= " ORDER BY modified desc LIMIT 10";
 $db = getDB();
 $stmt = $db->prepare($query);
-$roles = [];
+$products = [];
 try {
     $stmt->execute($params);
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if ($results) {
-        $roles = $results;
+        $products = $results;
     } else {
         flash("No matches found", "warning");
     }
@@ -44,9 +61,9 @@ try {
 }
 
 ?>
-<h1>List Roles</h1>
+<h1>Edit Product</h1>
 <form method="POST">
-    <input type="search" name="role" placeholder="Role Filter" />
+    <input type="search" name="product" placeholder="Product Filter" />
     <input type="submit" value="Search"/>
 </form>
 <table>
@@ -54,24 +71,29 @@ try {
         <th>ID</th>
         <th>Name</th>
         <th>Description</th>
-        <th>Active</th>
-        <th>Action</th>
+        <th>Category</th>
+        <th>Stock</th>
+        <th>Unit Price</th>
+        <th>Visibility</th>
     </thead>
     <tbody>
-        <?php if (empty($roles)) : ?>
+        <?php if (empty($products)) : ?>
             <tr>
-                <td colspan="100%">No roles</td>
+                <td colspan="100%">No products</td>
             </tr>
         <?php else : ?>
-            <?php foreach ($roles as $role) : ?>
+            <?php foreach ($products as $product) : ?>
                 <tr>
-                    <td><?php se($role, "id"); ?></td>
-                    <td><?php se($role, "name"); ?></td>
-                    <td><?php se($role, "description"); ?></td>
-                    <td><?php echo (se($role, "is_active", 0, false) ? "active" : "disabled"); ?></td>
+                    <td><?php se($product, "id"); ?></td>
+                    <td><?php se($product, "name"); ?></td>
+                    <td><?php se($product, "description"); ?></td>
+                    <td><?php se($product, "category"); ?></td>
+                    <td><?php se($product, "stock"); ?></td>
+                    <td><?php se($product, "unit_price"); ?></td>
+                    <td><?php echo (se($product, "visibility", 0, false) ? "active" : "disabled"); ?></td>
                     <td>
                         <form method="POST">
-                            <input type="hidden" name="role_id" value="<?php se($role, 'id'); ?>" />
+                            <input type="hidden" name="prod_name" value="<?php se($product, 'id'); ?>" />
                             <?php if (isset($search) && !empty($search)) : ?>
                                 <?php /* if this is part of a search, lets persist the search criteria so it reloads correctly*/ ?>
                                 <input type="hidden" name="role" value="<?php se($search, null); ?>" />
