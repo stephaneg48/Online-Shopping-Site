@@ -85,20 +85,20 @@ try {
             <?php foreach ($products as $product) : ?>
                 <tr>
                     <td><?php se($product, "id"); ?></td>
-                    <td><?php se($product, "name"); ?></td>
-                    <td><?php se($product, "description"); ?></td>
-                    <td><?php se($product, "category"); ?></td>
-                    <td><?php se($product, "stock"); ?></td>
-                    <td><?php se($product, "unit_price"); ?></td>
-                    <td><?php echo (se($product, "visibility", 0, false) ? "active" : "disabled"); ?></td>
+                    <td><input type="text" name="name" value="<?php se($product, "name"); ?>"/></td>
+                    <td><input type="text" name="desc" value="<?php se($product, "description"); ?>"/></td>
+                    <td><input type="text" name="cat" value="<?php se($product, "category"); ?>"/></td>
+                    <td><input type="number" max="999" name="stock" value="<?php se($product, "stock"); ?>"/></td>
+                    <td><input type="number" max="99999" name="cost" value="<?php se($product, "unit_price"); ?>"/></td>
+                    <td><?php echo (se($product, "visibility", 0, false) ? "visible" : "not visible"); ?></td>
                     <td>
                         <form method="POST">
                             <input type="hidden" name="prod_name" value="<?php se($product, 'id'); ?>" />
                             <?php if (isset($search) && !empty($search)) : ?>
                                 <?php /* if this is part of a search, lets persist the search criteria so it reloads correctly*/ ?>
-                                <input type="hidden" name="role" value="<?php se($search, null); ?>" />
+                                <input type="hidden" name="product" value="<?php se($search, null); ?>" />
                             <?php endif; ?>
-                            <input type="submit" value="Toggle" />
+                            <input type="submit" value="Update" />
                         </form>
                     </td>
                 </tr>
