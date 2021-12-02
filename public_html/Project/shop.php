@@ -1,6 +1,11 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php");
 
+if(!is_logged_in(true))
+{
+    flash("You're not logged in");
+}
+
 $results = [];
 $db = getDB();
 $stmt = $db->prepare("SELECT id, name, description, category, stock, unit_price, visibility FROM Products WHERE visibility = 1 AND stock > 0 LIMIT 99");
@@ -38,7 +43,7 @@ try {
                     </div>
                     <div class="card-footer">
                         Cost: <?php se($item, "unit_price"); ?>
-                        <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-primary">Purchase</button>
+                        <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-primary">Add to Cart</button>
                     </div>
                 </div>
             </div>
