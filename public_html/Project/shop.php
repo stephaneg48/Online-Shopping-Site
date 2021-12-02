@@ -39,6 +39,10 @@ try {
                     <div class="card-footer">
                         Cost: <?php se($item, "unit_price"); ?>
                         <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-primary">Add to Cart</button>
+                        <?php if (has_role("Admin") || has_role("Shop Owner")) : ?>
+                            <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-primary">Edit Product</button>
+                        <?php endif; ?>
+                        
                     </div>
                 </div>
             </div>
