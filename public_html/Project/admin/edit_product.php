@@ -27,7 +27,7 @@ if ( isset($_POST["id"]) &&
     $visible = se($_POST, "visibility", 0, false) ? 1 : 0;
     if (!empty($prod_name) && !empty($desc) && !empty($cat) && $stock >= 0 && $cost >= 0 && ($visible == 1 || $visible == 0)) 
     {
-        error_log("updating");
+        // error_log("updating");
         $db = getDB();
         $stmt = $db->prepare("UPDATE Products SET name = :name, 
         description = :desc, 
@@ -51,14 +51,11 @@ if ( isset($_POST["id"]) &&
 }
 
 $query = "SELECT id, name, description, category, stock, unit_price, visibility from Products";
-$search = "";
+$search = se($_POST, "product", "", false);
 $params = null;
 error_log(var_export($_POST, true));
-if (isset($_POST["product"])) {
-    $search = se($_POST, "product", "", false);
-    $query .= " WHERE name LIKE :name";
-    $params =  [":name" => "%$search%"];
-}
+$query .= " WHERE name LIKE :name";
+$params =  [":name" => "%$search%"];
 error_log(var_export($search, true));
 $query .= " ORDER BY modified desc LIMIT 10";
 $db = getDB();
@@ -79,12 +76,9 @@ try {
 ?>
 <h1>Edit Product</h1>
 <form method="POST">
-    <input type="search" name="product" placeholder="Product Filter" />
     <td>
-        <?php if (isset($search) && !empty($search)) : ?>
         <?php /* if this is part of a search, lets persist the search criteria so it reloads correctly*/ ?>
-        <input type="hidden" name="product" value="<?php se($search); ?>" />
-        <?php endif; ?>
+        <input type="search" name="product" placeholder="Product Filter" value="<?php se($search); ?>"/>
         <input type="submit" value="Search" />
     </td>
 </form>
