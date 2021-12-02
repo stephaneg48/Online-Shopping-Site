@@ -63,6 +63,7 @@ try {
             </div>
         </div>
     </form>
+    
     <div class="row row-cols-1 row-cols-md-5 g-4">
         <?php foreach ($results as $item) : ?>
             <div class="col">
@@ -79,10 +80,11 @@ try {
                         Cost: <?php se($item, "unit_price"); ?>
                         <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-primary">Add to Cart</button>
                         <?php if (has_role("Admin") || has_role("Shop Owner")) : ?>
-                            <form>
-
+                            <form action="<?php echo get_url('admin/edit_product.php'); ?>" method="POST">
+                                <input type="hidden" name="product" value="<?php se($item, 'name'); ?>" />
+                                <button class="btn btn-primary">Edit Product</a> 
                             </form>
-                            <a href="<?php echo get_url('admin/edit_product.php'); ?>" class="btn btn-primary">Edit Product</a> 
+                            
                             <!-- the class makes it look like a button here -->
                         <?php endif; ?>
                         
