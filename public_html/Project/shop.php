@@ -33,14 +33,15 @@ try {
                     </div>
 
                     <div class="card-body">
-                        <h5 class="card-title"><?php se($item, "name"); ?></h5>
+                    <a href="<?php echo get_url('product.php'); ?>"><h5 class="card-title"><?php se($item, "name"); ?></h5></a>
                         <p class="card-text"><?php se($item, "description"); ?></p>
                     </div>
                     <div class="card-footer">
                         Cost: <?php se($item, "unit_price"); ?>
                         <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-primary">Add to Cart</button>
                         <?php if (has_role("Admin") || has_role("Shop Owner")) : ?>
-                            <button onclick="<?php echo get_url('admin/edit_product.php'); ?>" class="btn btn-primary">Edit Product</button>
+                            <a href="<?php echo get_url('admin/edit_product.php'); ?>" class="btn btn-primary">Edit Product</a> 
+                            <!-- the class makes it look like a button here -->
                         <?php endif; ?>
                         
                     </div>
