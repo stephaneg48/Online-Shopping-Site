@@ -1,11 +1,6 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php");
 
-if(!is_logged_in(true))
-{
-    flash("You're not logged in");
-}
-
 $results = [];
 $db = getDB();
 $stmt = $db->prepare("SELECT id, name, description, category, stock, unit_price, visibility FROM Products WHERE visibility = 1 AND stock > 0 LIMIT 99");
