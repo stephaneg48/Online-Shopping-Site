@@ -10,32 +10,39 @@ if (!has_role("Admin") && !has_role("Shop Owner")) {
 // doing it like this to put two features into one...
 
 //handle the toggle first so select pulls fresh data
-if ( isset($_POST["id"]) ||
-    isset($_POST["prod_name"]) || 
-    isset($_POST["desc"]) || 
-    isset($_POST["cat"]) || 
-    isset($_POST["stock"]) || 
-    isset($_POST["unit_price"]) || 
-    isset($_POST["visible"]) ) 
+if ( isset($_POST["id"]) &&
+    isset($_POST["name"]) && 
+    isset($_POST["desc"]) && 
+    isset($_POST["cat"]) && 
+    isset($_POST["stock"]) && 
+    isset($_POST["cost"]) ) 
     {
+        error_log(var_export($_POST, true));
     $id = se($_POST, "id", "", false);
-    $prod_name = se($_POST, "prod_name", "", false);
+    $prod_name = se($_POST, "name", "", false);
     $desc = se($_POST, "desc", "", false);
     $cat = se($_POST, "cat", "", false);
     $stock = se($_POST, "stock", 0, false);
-    $cost = se($_POST, "unit_price", 99999, false);
-    $visible = se($_POST, "visible", 0, false);
-    if (!empty($prod_name) && !empty($desc) && !empty($cat) && $stock >= 0 && $unit_price >= 0 && ($visible == 1 || $visible == 0)) 
+    $cost = se($_POST, "cost", 99999, false);
+    $visible = se($_POST, "visibility", 0, false) ? 1 : 0;
+    if (!empty($prod_name) && !empty($desc) && !empty($cat) && $stock >= 0 && $cost >= 0 && ($visible == 1 || $visible == 0)) 
     {
+        error_log("updating");
         $db = getDB();
-        $stmt = $db->prepare("UPDATE Products SET name = $prod_name, 
-        description = $desc, 
-        category = $cat, 
-        stock = $stock, 
-        unit_price = $cost,
-        visibility = $visible WHERE id = :id");
+        $stmt = $db->prepare("UPDATE Products SET name = :name, 
+        description = :desc, 
+        category = :cat, 
+        stock = :stock, 
+        unit_price = :cost,
+        visibility = :visibility WHERE id = :id");
         try {
-            $stmt->execute([":id" => $id]);
+            $stmt->execute([":id" => $id, 
+            ":name" => $prod_name, 
+            ":desc" => $desc, 
+            ":cat" => $cat, 
+            ":stock" => $stock,
+            ":cost" => $cost,
+            ":visibility" => $visible]);
             flash("Updated Product", "success");
         } catch (PDOException $e) {
             flash(var_export($e->errorInfo, true), "danger");
@@ -45,8 +52,8 @@ if ( isset($_POST["id"]) ||
 
 $query = "SELECT id, name, description, category, stock, unit_price, visibility from Products";
 $params = null;
-if (isset($_POST["name"])) {
-    $search = se($_POST, "name", "", false);
+if (isset($_POST["product"])) {
+    $search = se($_POST, "product", "", false);
     $query .= " WHERE name LIKE :name";
     $params =  [":name" => "%$search%"];
 }
@@ -70,7 +77,13 @@ try {
 <h1>Edit Product</h1>
 <form method="POST">
     <input type="search" name="product" placeholder="Product Filter" />
-    <input type="submit" value="Search"/>
+    <td>
+        <?php if (isset($search) && !empty($search)) : ?>
+        <?php /* if this is part of a search, lets persist the search criteria so it reloads correctly*/ ?>
+        <input type="hidden" name="product" value="<?php se($search); ?>" />
+        <?php endif; ?>
+        <input type="submit" value="Search" />
+    </td>
 </form>
 <table>
     <thead>
@@ -90,19 +103,20 @@ try {
         <?php else : ?>
             <?php foreach ($products as $product) : ?>
                 <tr>
+                <form method="POST">
                     <td><?php se($product, "id"); ?></td>
                     <td><input type="text" name="name" value="<?php se($product, "name"); ?>"/></td>
                     <td><input type="text" name="desc" value="<?php se($product, "description"); ?>"/></td>
                     <td><input type="text" name="cat" value="<?php se($product, "category"); ?>"/></td>
                     <td><input type="number" min="1" max="999" name="stock" value="<?php se($product, "stock"); ?>"/></td>
                     <td><input type="number" min="1" max="99999" name="cost" value="<?php se($product, "unit_price"); ?>"/></td>
-                    <td><?php echo (se($product, "visibility", 0, false) ? "visible" : "not visible"); ?></td>
+                    <td><input type="checkbox" name="visibility" value="<?php echo (se($product, "visibility", 0, false) ? "visible" : "not visible"); ?>"></td>
                     <td>
-                        <form method="POST">
+                      
                             <input type="hidden" name="id" value="<?php se($product, 'id'); ?>" />
                             <?php if (isset($search) && !empty($search)) : ?>
-                                <?php /* if this is part of a search, lets persist the search criteria so it reloads correctly*/ ?>
-                                <input type="hidden" name="product" value="<?php se($search, null); ?>" />
+                            <?php /* if this is part of a search, lets persist the search criteria so it reloads correctly*/ ?>
+                            <input type="hidden" name="product" value="<?php se($search); ?>" />
                             <?php endif; ?>
                             <input type="submit" value="Update" />
                         </form>
