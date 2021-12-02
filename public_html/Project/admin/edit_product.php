@@ -93,10 +93,10 @@ try {
                     <td><?php echo (se($product, "visibility", 0, false) ? "visible" : "not visible"); ?></td>
                     <td>
                         <form method="POST">
-                            <input type="hidden" name="prod_name" value="<?php se($product, 'id'); ?>" />
+                            <input type="hidden" name="id" value="<?php se($product, 'id'); ?>" />
                             <?php if (isset($search) && !empty($search)) : ?>
                                 <?php /* if this is part of a search, lets persist the search criteria so it reloads correctly*/ ?>
-                                <input type="hidden" name="product" value="<?php se($search, null); ?>" />
+                                <input type="hidden" name="id" value="<?php se($product, "id"); ?>" />
                             <?php endif; ?>
                             <input type="submit" value="Update" />
                         </form>
