@@ -51,12 +51,15 @@ if ( isset($_POST["id"]) &&
 }
 
 $query = "SELECT id, name, description, category, stock, unit_price, visibility from Products";
+$search = "";
 $params = null;
+error_log(var_export($_POST, true));
 if (isset($_POST["product"])) {
     $search = se($_POST, "product", "", false);
     $query .= " WHERE name LIKE :name";
     $params =  [":name" => "%$search%"];
 }
+error_log(var_export($search, true));
 $query .= " ORDER BY modified desc LIMIT 10";
 $db = getDB();
 $stmt = $db->prepare($query);
