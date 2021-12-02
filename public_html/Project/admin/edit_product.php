@@ -110,7 +110,8 @@ try {
                     <td><input type="text" name="cat" value="<?php se($product, "category"); ?>"/></td>
                     <td><input type="number" min="1" max="999" name="stock" value="<?php se($product, "stock"); ?>"/></td>
                     <td><input type="number" min="1" max="99999" name="cost" value="<?php se($product, "unit_price"); ?>"/></td>
-                    <td><input type="checkbox" name="visibility" value="<?php echo (se($product, "visibility", 0, false) ? "visible" : "not visible"); ?>"></td>
+                    <td><input type="checkbox" checked name="visibility" value="<?php echo (se($product, "visibility", 0, false) ? "visible" : "not visible"); ?>"></td>
+                    <!-- "checked" because when I add products, default visibility is 1... -->
                     <td>
                       
                             <input type="hidden" name="id" value="<?php se($product, 'id'); ?>" />
