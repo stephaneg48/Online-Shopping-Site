@@ -94,8 +94,8 @@ try {
                     <td><input type="text" name="name" value="<?php se($product, "name"); ?>"/></td>
                     <td><input type="text" name="desc" value="<?php se($product, "description"); ?>"/></td>
                     <td><input type="text" name="cat" value="<?php se($product, "category"); ?>"/></td>
-                    <td><input type="number" max="999" name="stock" value="<?php se($product, "stock"); ?>"/></td>
-                    <td><input type="number" max="99999" name="cost" value="<?php se($product, "unit_price"); ?>"/></td>
+                    <td><input type="number" min="1" max="999" name="stock" value="<?php se($product, "stock"); ?>"/></td>
+                    <td><input type="number" min="1" max="99999" name="cost" value="<?php se($product, "unit_price"); ?>"/></td>
                     <td><?php echo (se($product, "visibility", 0, false) ? "visible" : "not visible"); ?></td>
                     <td>
                         <form method="POST">
