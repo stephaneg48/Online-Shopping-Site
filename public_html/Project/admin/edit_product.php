@@ -6,14 +6,19 @@ if (!has_role("Admin") && !has_role("Shop Owner")) {
     flash("You don't have permission to view this page", "warning");
     die(header("Location: $BASE_PATH" . "home.php"));
 }
+
+// doing it like this to put two features into one...
+
 //handle the toggle first so select pulls fresh data
-if ( isset($_POST["prod_name"]) || 
+if ( isset($_POST["id"]) ||
+    isset($_POST["prod_name"]) || 
     isset($_POST["desc"]) || 
     isset($_POST["cat"]) || 
     isset($_POST["stock"]) || 
     isset($_POST["unit_price"]) || 
     isset($_POST["visible"]) ) 
     {
+    $id = se($_POST, "id", "", false);
     $prod_name = se($_POST, "prod_name", "", false);
     $desc = se($_POST, "desc", "", false);
     $cat = se($_POST, "cat", "", false);
@@ -30,13 +35,14 @@ if ( isset($_POST["prod_name"]) ||
         unit_price = $cost,
         visibility = $visible WHERE id = :id");
         try {
-            $stmt->execute([":id" => $prod_name]);
+            $stmt->execute([":id" => $id]);
             flash("Updated Product", "success");
         } catch (PDOException $e) {
             flash(var_export($e->errorInfo, true), "danger");
         }
     }
 }
+
 $query = "SELECT id, name, description, category, stock, unit_price, visibility from Products";
 $params = null;
 if (isset($_POST["name"])) {
@@ -96,7 +102,7 @@ try {
                             <input type="hidden" name="id" value="<?php se($product, 'id'); ?>" />
                             <?php if (isset($search) && !empty($search)) : ?>
                                 <?php /* if this is part of a search, lets persist the search criteria so it reloads correctly*/ ?>
-                                <input type="hidden" name="id" value="<?php se($product, "id"); ?>" />
+                                <input type="hidden" name="product" value="<?php se($search, null); ?>" />
                             <?php endif; ?>
                             <input type="submit" value="Update" />
                         </form>
