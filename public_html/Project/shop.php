@@ -3,7 +3,23 @@ require(__DIR__ . "/../../partials/nav.php");
 
 $results = [];
 $db = getDB();
-$stmt = $db->prepare("SELECT id, name, description, category, stock, unit_price, visibility FROM Products WHERE visibility = 1 AND stock > 0 LIMIT 99");
+//Sort and Filters
+$col = se($_GET, "col", "cost", false);
+if (!in_array($col, ["cost", "stock", "name", "created"])) {
+    $col = "cost"; //default value, prevent sql injection
+}
+$order = se($_GET, "order", "asc", false);
+//allowed list
+if (!in_array($order, ["asc", "desc"])) {
+    $order = "asc"; //default value, prevent sql injection
+}
+
+$name = se($_GET, "name", "", false);
+
+$query = "SELECT id, name, description, category, stock, unit_price, visibility FROM Products WHERE 1=1 AND visibility = 1 AND stock > 0 LIMIT 99";
+
+// list visible products...
+$stmt = $db->prepare($query);
 try {
     $stmt->execute();
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -13,7 +29,31 @@ try {
 } catch (PDOException $e) {
     flash("<pre>" . var_export($e, true) . "</pre>");
 }
+
+// dynamic query for search
+$params = []; //define default params, add keys as needed and pass to execute
+//apply name filter
+if (!empty($name)) {
+    $query .= " AND name like :name";
+    $params[":name"] = "%$name%";
+}
+//apply column and order sort
+if (!empty($col) && !empty($order)) {
+    $query .= " ORDER BY $col $order"; //be sure you trust these values, I validate via the in_array checks above
+}
+$stmt = $db->prepare($query); //dynamically generated query
+//$stmt = $db->prepare("SELECT id, name, description, cost, stock, image FROM BGD_Items WHERE stock > 0 LIMIT 50");
+try {
+    $stmt->execute($params); //dynamically populated params to bind
+    $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if ($r) {
+        $results = $r;
+    }
+} catch (PDOException $e) {
+    flash("<pre>" . var_export($e, true) . "</pre>");
+}
 ?>
+
 
 <script>
     function purchase(item) {
