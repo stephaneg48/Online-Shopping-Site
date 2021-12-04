@@ -24,9 +24,9 @@ function get_categories()
 $results = [];
 $db = getDB();
 //Sort and Filters
-$col = se($_GET, "col", "cost", false);
-if (!in_array($col, ["cost"])) {
-    $col = "cost"; //default value, prevent sql injection
+$col = se($_GET, "col", "unit_price", false);
+if (!in_array($col, ["unit_price"])) {
+    $col = "unit_price"; //default value, prevent sql injection
 }
 $order = se($_GET, "order", "asc", false);
 //allowed list
@@ -37,7 +37,7 @@ if (!in_array($order, ["asc", "desc"])) {
 $query = "SELECT id, name, description, category, stock, unit_price, visibility FROM Products WHERE 1=1 AND visibility = 1 AND stock > 0";
 
 $name = se($_GET, "name", "", false);
-$cat = se($_POST, "category", "", false);
+$cat = se($_GET, "category", "", false);
 
 $stmt = $db->prepare($query);
 try {
@@ -58,9 +58,14 @@ if (!empty($name)) {
     $params[":name"] = "%$name%";
 }
 
-if (!empty($cat)) {
+if (!empty($cat) && ($cat != "All")) {
     $query .= " AND category = :cat";
-    $params[":cat"] = $cat;
+    $params[":cat"] = "$cat";
+}
+
+elseif (!empty($cat) && ($cat == "All"))
+{
+    $params[":cat"] = "$cat";
 }
 
 //apply column and order sort
@@ -68,6 +73,7 @@ if (!empty($col) && !empty($order)) {
     $query .= " ORDER BY $col $order LIMIT 99"; //be sure you trust these values, I validate via the in_array checks above
 }
 
+error_log($query);
 // list visible products (based on filters, if any)...
 $stmt = $db->prepare($query); //dynamically generated query
 
@@ -99,12 +105,13 @@ try {
                 <input class="form-control" name="item" value="<?php se($results); ?>" />
             </div>
         </div>
+
         <div class="col">
             <div class="input-group">
                 <div class="input-group-text">Sort</div>
                 <!-- make sure these match the in_array filter above-->
                 <select class="form-control" name="col" value="<?php se($col); ?>">
-                    <option value="cost">Cost</option>
+                    <option value="unit_price">Cost</option>
                 </select>
                 
                 <script>
@@ -135,7 +142,7 @@ try {
                     <?php endforeach?>
                 </select>
                 <script>
-                    document.forms[0].cats.value = "<?php se($cat,"category"); ?>";
+                    document.forms[0].category.value = "<?php se($cat,"category"); ?>";
                 </script>
             </div>
         </div>
