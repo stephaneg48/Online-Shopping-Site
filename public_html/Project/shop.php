@@ -1,11 +1,31 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php");
 
+
+function get_categories()
+{
+    $db = getDB();
+    $stmt = $db->prepare("SELECT DISTINCT category FROM Products");
+    $cats = [];
+    try {
+        $stmt->execute();
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if($r)
+        {
+            $cats = $r;
+        }
+    }
+    catch(PDOException $e) {
+        error_log("Category lookup error: " . var_export($e, true));
+    }
+    return $cats;
+}
+
 $results = [];
 $db = getDB();
 //Sort and Filters
 $col = se($_GET, "col", "cost", false);
-if (!in_array($col, ["cost", "stock", "name", "created"])) {
+if (!in_array($col, ["cost"])) {
     $col = "cost"; //default value, prevent sql injection
 }
 $order = se($_GET, "order", "asc", false);
@@ -14,11 +34,11 @@ if (!in_array($order, ["asc", "desc"])) {
     $order = "asc"; //default value, prevent sql injection
 }
 
+$query = "SELECT id, name, description, category, stock, unit_price, visibility FROM Products WHERE 1=1 AND visibility = 1 AND stock > 0";
+
 $name = se($_GET, "name", "", false);
+$cat = se($_POST, "category", "", false);
 
-$query = "SELECT id, name, description, category, stock, unit_price, visibility FROM Products WHERE 1=1 AND visibility = 1 AND stock > 0 LIMIT 99";
-
-// list visible products...
 $stmt = $db->prepare($query);
 try {
     $stmt->execute();
@@ -37,12 +57,20 @@ if (!empty($name)) {
     $query .= " AND name like :name";
     $params[":name"] = "%$name%";
 }
+
+if (!empty($cat)) {
+    $query .= " AND category = :cat";
+    $params[":cat"] = $cat;
+}
+
 //apply column and order sort
 if (!empty($col) && !empty($order)) {
-    $query .= " ORDER BY $col $order"; //be sure you trust these values, I validate via the in_array checks above
+    $query .= " ORDER BY $col $order LIMIT 99"; //be sure you trust these values, I validate via the in_array checks above
 }
+
+// list visible products (based on filters, if any)...
 $stmt = $db->prepare($query); //dynamically generated query
-//$stmt = $db->prepare("SELECT id, name, description, cost, stock, image FROM BGD_Items WHERE stock > 0 LIMIT 50");
+
 try {
     $stmt->execute($params); //dynamically populated params to bind
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -64,7 +92,7 @@ try {
 
 <div class="container-fluid">
     <h1>Shop</h1>
-    <form class="row row-cols-auto g-3 align-items-center">
+    <form class="row row-cols-6 g-3 align-items-center">
         <div class="col">
             <div class="input-group">
                 <div class="input-group-text">Search</div>
@@ -77,10 +105,8 @@ try {
                 <!-- make sure these match the in_array filter above-->
                 <select class="form-control" name="col" value="<?php se($col); ?>">
                     <option value="cost">Cost</option>
-                    <option value="stock">Stock</option>
-                    <option value="name">Name</option>
-                    <option value="created">Created</option>
                 </select>
+                
                 <script>
                     //quick fix to ensure proper value is selected since
                     //value setting only works after the options are defined and php has the value set prior
@@ -97,6 +123,23 @@ try {
                 </script>
             </div>
         </div>
+
+        <div class="col">
+            <div class="input-group">
+                <div class="input-group-text">Category</div>
+                <?php $cats = get_categories();?>
+                <select class="form-control" name="category">
+                    <option>All</option>
+                    <?php foreach ($cats as $cat):?>
+                        <option value="<?php se($cat, "category");?>"> <?php se($cat,"category");?> <!-- what shows in dropdown --> </option>
+                    <?php endforeach?>
+                </select>
+                <script>
+                    document.forms[0].cats.value = "<?php se($cat,"category"); ?>";
+                </script>
+            </div>
+        </div>
+
         <div class="col">
             <div class="input-group">
                 <input type="submit" class="btn btn-primary" value="Apply" />
