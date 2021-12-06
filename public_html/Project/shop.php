@@ -38,6 +38,7 @@ $query = "SELECT id, name, description, category, stock, unit_price, visibility 
 
 $name = se($_GET, "name", "", false);
 $cat = se($_GET, "category", "", false);
+$id = se($_GET, "id", "", false);
 
 // dynamic query for search
 $params = []; //define default params, add keys as needed and pass to execute
@@ -50,6 +51,11 @@ if (!empty($name)) {
 if (!empty($cat) && ($cat != "All")) {
     $query .= " AND category = :cat";
     $params[":cat"] = "$cat";
+}
+
+if(!empty($id)) {
+$query .= " AND id = :id";
+$params[":id"] = "$id";
 }
 
 //apply column and order sort
@@ -151,8 +157,10 @@ try {
                     </div>
 
                     <div class="card-body">
-                    <a href="<?php echo get_url('product.php'); ?>"><h5 class="card-title"><?php se($item, "name"); ?></h5></a>
+                    <form method="GET">
+                        <a href="<?php echo get_url('product.php?id='); se($item, "id"); ?>"><h5 class="card-title"><?php se($item, "name"); ?></h5></a>
                         <p class="card-text"><?php se($item, "description"); ?></p>
+                    </form>
                     </div>
                     <div class="card-footer">
                         Cost: <?php se($item, "unit_price"); ?>
