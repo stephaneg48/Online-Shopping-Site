@@ -13,14 +13,15 @@ $stock = se($_GET, "stock", "", false);
 $cost = se($_GET, "unit_price", "", false);
 $id = se($_GET, "id", "", false);
 
+
+
 // dynamic query for search
 $params = []; //define default params, add keys as needed and pass to execute
 //apply name filter
 
-
-if ($id > 0) {
-    $query .= " AND id = :id";
-    $params[":id"] = "$id";
+if(!empty($id)) {
+$query .= " AND id = :id";
+$params[":id"] = "$id";
 }
 
 $stmt = $db->prepare($query); //dynamically generated query
