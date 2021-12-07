@@ -73,7 +73,7 @@ try {
                     <?php endif;?>
                 <?php endfor; ?>
         <form>
-                            <button onclick="purchase('<?php se($result, 'id'); ?>')" class="btn btn-primary">Add to Cart</button>
+                            <button onclick="add_to_cart('<?php se($result, 'id'); ?>')" class="btn btn-primary">Add to Cart</button>
                         </form>
                         <?php if (has_role("Admin") || has_role("Shop Owner")) : ?>
                             <form action="<?php echo get_url('admin/edit_product.php'); ?>" method="POST">

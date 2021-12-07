@@ -39,6 +39,7 @@ $query = "SELECT id, name, description, category, stock, unit_price, visibility 
 $name = se($_GET, "name", "", false);
 $cat = se($_GET, "category", "", false);
 $id = se($_GET, "id", "", false);
+$quantity = se($_GET, "quantity", "", false);
 
 // dynamic query for search
 $params = []; //define default params, add keys as needed and pass to execute
@@ -80,10 +81,69 @@ try {
 
 
 <script>
-    function purchase(item) {
+    function add_to_cart(item, cost, quantity) {
         console.log("TODO purchase item", item);
+        let example = 1;
+        if (example === 1) {
+            let http = new XMLHttpRequest();
+            http.onreadystatechange = () => {
+                if (http.readyState == 4) {
+                    if (http.status === 200) {
+                        let data = JSON.parse(http.responseText);
+                        console.log("received data", data);
+                        flash(data.message, "success");
+                    }
+                    console.log(http);
+                }
+            }
+            http.open("POST", "api/add_to_cart.php", true);
+            let data = {
+                item_id: item,
+                cost: cost,
+                quantity: 1
+            }
+            let q = Object.keys(data).map(key => key + '=' + data[key]).join('&');
+            console.log(q)
+            http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            http.send(q);
+        } else if (example === 2) {
+            let data = new FormData();
+            data.append("item_id", item);
+            data.append("cost", cost);
+            data.append("quantity", 1);
+            fetch("api/add_to_cart.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "X-Requested-With": "XMLHttpRequest",
+                    },
+                    body: data
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    flash(data.message, "success");
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        } else if (example === 3) {
+            $.post("api/add_to_cart.php", {
+                    item_id: item,
+                    quantity: 1,
+                    cost: cost
+                }, (resp, status, xhr) => {
+                    console.log(resp, status, xhr);
+                    let data = JSON.parse(resp);
+                    flash(data.message, "success");
+                },
+                (xhr, status, error) => {
+                    console.log(xhr, status, error);
+                });
+        }
         //TODO create JS helper to update all show-balance elements
     }
+
 </script>
 
 <div class="container-fluid">
@@ -165,7 +225,9 @@ try {
                     <div class="card-footer">
                         Cost: <?php se($item, "unit_price"); ?>
                         <form>
-                            <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-primary">Add to Cart</button>
+                            <button onclick="add_to_cart('<?php se($item, 'id'); ?>')" class="btn btn-primary">Add to Cart</button>
+                            <label for="quantity">Quantity</label>
+                            <input type="number" max="99" id="quantity" name="quantity" value="<?php se($quantity); ?>"></input><br><br>
                         </form>
                         <?php if (has_role("Admin") || has_role("Shop Owner")) : ?>
                             <form action="<?php echo get_url('admin/edit_product.php'); ?>" method="POST">
