@@ -81,8 +81,9 @@ try {
 
 
 <script>
-    function add_to_cart(item, cost, quantity) {
+    function add_to_cart(event, item, cost, quantity) {
         console.log("TODO purchase item", item);
+        console.log(event);
         let example = 1;
         if (example === 1) {
             let http = new XMLHttpRequest();
@@ -100,7 +101,7 @@ try {
             let data = {
                 item_id: item,
                 cost: cost,
-                quantity: 1
+                quantity: document.getElementById("quantity").value
             }
             let q = Object.keys(data).map(key => key + '=' + data[key]).join('&');
             console.log(q)
@@ -223,11 +224,12 @@ try {
                     </form>
                     </div>
                     <div class="card-footer">
-                        Cost: <?php se($item, "unit_price"); ?>
-                        <form>
-                            <button onclick="add_to_cart('<?php se($item, 'id'); ?>')" class="btn btn-primary">Add to Cart</button>
-                            <label for="quantity">Quantity</label>
+                        <form method="POST">
+                            <label for="cost" name="cost"></label>Cost: <?php se($item, "unit_price"); ?>
+                            <label for="quantity">Quantity:</label>
                             <input type="number" max="99" id="quantity" name="quantity" value="<?php se($quantity); ?>"></input><br><br>
+                            <button onclick="add_to_cart(event, '<?php se($item, 'id'); ?>', '<?php se($item, 'unit_price'); ?>', 1)" class="btn btn-primary">Add to Cart</button>
+                            <!-- three parameters: item, cost, quantity -->
                         </form>
                         <?php if (has_role("Admin") || has_role("Shop Owner")) : ?>
                             <form action="<?php echo get_url('admin/edit_product.php'); ?>" method="POST">

@@ -1,4 +1,7 @@
 <?php
+
+
+
 //remember, API endpoints should only echo/output precisely what you want returned
 //any other unexpected characters can break the handling of the response
 $response = ["message" => "There was a problem completing your purchase"];
@@ -9,6 +12,7 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
     require_once(__DIR__ . "/../../../lib/functions.php");
     session_start();
     $user_id = get_user_id();
+    error_log("user id is $user_id");
     $item_id = (int)se($_POST, "item_id", 0, false);
     $quantity = (int)se($_POST, "quantity", 0, false);
     $cost = (int)se($_POST, "cost", 0, false);
@@ -35,11 +39,30 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
         array_push($errors, "Invalid quantity");
         $isValid = false;
     }
-    if (($cost*$quantity) > $balance) {
-        //can't afford
-        array_push($errors, "Insufficient funds");
-        $isValid = false;
+
+    function add_item($item_id, $user_id, $quantity = 1)
+    {
+        error_log("add_item() Item ID: $item_id, User_id: $user_id, Quantity $quantity");
+        //I'm using negative values for predefined items so I can't validate >= 0 for item_id
+        if (/*$item_id <= 0 ||*/$user_id <= 0 || $quantity === 0) {
+            
+            return;
+        }
+        $db = getDB();
+        $stmt = $db->prepare("INSERT INTO Cart (item_id, user_id, quantity) VALUES (:item_id, :user_id, :quantity) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
+        try {
+            //if using bindValue, all must be bind value, can't split between this an execute assoc array
+            $stmt->bindValue(":quantity", $quantity, PDO::PARAM_INT);
+            $stmt->bindValue(":item_id", $item_id, PDO::PARAM_INT);
+            $stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            error_log("Error adding $quantity of $item_id to user $user_id: " . var_export($e->errorInfo, true));
+        }
+        return false;
     }
+
     if($isValid){
         //get true price from DB, don't trust the client
         $db = getDB();
@@ -57,19 +80,17 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
             $isValid = false;
         }
     }
-    if ($isValid) {
-        if (change_bills($cost * $quantity, "purchase", get_user_account_id(), -1, "Purchased $quantity $name")) 
-        {
-            record_purchase($item_id, $user_id, $quantity);
+    if ($isValid) 
+
+    {
+    
             add_item($item_id, $user_id, $quantity);
             http_response_code(200);
             $response["message"] = "Added $quantity of $name to cart";
             //success
-        } else {
-            error_log("Problem creating transaction");
-        }
-    } else {
-        $response["message"] = join("<br>", $errors);
+
     }
+    $response["message"] = join("<br>", $errors);
+
 }
 echo json_encode($response);
