@@ -227,10 +227,12 @@ try {
                     <div class="card-footer">
                         <form method="POST">
                             <label for="cost" name="cost"></label>Cost: <?php se($item, "unit_price"); ?>
-                            <label for="quantity">Quantity:</label>
-                            <input type="number" max="99" id="quantity" name="quantity" value="<?php se($quantity); ?>"></input><br><br>
-                            <button onclick="add_to_cart(event, '<?php se($item, 'id'); ?>', '<?php se($item, 'unit_price'); ?>', 1)" class="btn btn-primary">Add to Cart</button>
+                            <?php if (is_logged_in()) : ?>
+                                <br><label for="quantity">Quantity:</label>
+                                <input type="number" max="99" id="quantity" name="quantity" value="<?php se($quantity); ?>" style="width:50px"></input><br><br>
+                                <button onclick="add_to_cart(event, '<?php se($item, 'id'); ?>', '<?php se($item, 'unit_price'); ?>', 1)" class="btn btn-primary">Add to Cart</button>
                             <!-- three parameters: item, cost, quantity -->
+                            <?php endif; ?>
                         </form>
                         <?php if (has_role("Admin") || has_role("Shop Owner")) : ?>
                             <form action="<?php echo get_url('admin/edit_product.php'); ?>" method="POST">
