@@ -7,7 +7,7 @@ require(__DIR__ . "/../../partials/nav.php");
 $results = [];
 $db = getDB();
 if (!is_logged_in()) {
-    flash("You don't have permission to view this page", "warning");
+    flash("You must be logged in to view this page", "warning");
     die(header("Location: login.php"));
 }
 else
