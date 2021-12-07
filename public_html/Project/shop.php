@@ -101,7 +101,8 @@ try {
             let data = {
                 item_id: item,
                 cost: cost,
-                quantity: document.getElementById("quantity").value
+                quantity: event.target.parentElement.quantity.value
+
             }
             let q = Object.keys(data).map(key => key + '=' + data[key]).join('&');
             console.log(q)
