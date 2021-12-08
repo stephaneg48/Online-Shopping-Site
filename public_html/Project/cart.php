@@ -10,11 +10,21 @@ if (!is_logged_in()) {
     flash("You must be logged in to view this page", "warning");
     die(header("Location: login.php"));
 }
-else
-{
-    // get the user's id?
-}
 
+$id = get_user_id();
+$query = "SELECT name, unit_price, product_id, user_id, desired_quantity FROM Cart WHERE user_id = :id";
+
+$stmt = $db->prepare($query); //dynamically generated query
+
+try {
+    $stmt->execute();
+    $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if ($r) {
+        $results = $r;
+    }
+} catch (PDOException $e) {
+    flash("<pre>" . var_export($e, true) . "</pre>");
+}
 // ...
 
 ?>

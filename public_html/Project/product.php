@@ -12,6 +12,10 @@ $cat = se($_GET, "category", "", false);
 $stock = se($_GET, "stock", "", false);
 $cost = se($_GET, "unit_price", "", false);
 $id = se($_GET, "id", "", false);
+if(isset($_POST["id"]))
+{
+    $id = se($_GET, "id", $_POST["id"], false);
+}
 $quantity = se($_GET, "quantity", "", false);
 
 
