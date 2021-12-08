@@ -84,71 +84,31 @@ try {
     function add_to_cart(event, name, item, cost, quantity) {
         console.log("TODO purchase item", item);
         console.log(event);
-        let example = 1;
-        if (example === 1) {
-            let http = new XMLHttpRequest();
-            http.onreadystatechange = () => {
-                if (http.readyState == 4) {
-                    if (http.status === 200) {
-                        let data = JSON.parse(http.responseText);
-                        console.log("received data", data);
-                        flash(data.message, "success");
-                    }
-                    console.log(http);
+        let http = new XMLHttpRequest();
+        http.onreadystatechange = () => {
+            if (http.readyState == 4) {
+                if (http.status === 200) {
+                    let data = JSON.parse(http.responseText);
+                    console.log("received data", data);
+                    flash(data.message, "success");
                 }
+                console.log(http);
             }
-            http.open("POST", "api/add_to_cart.php", true);
-            let data = {
-                prodname: name,
-                item_id: item,
-                cost: cost,
-                quantity: event.target.parentElement.quantity.value
-
-            }
-            let q = Object.keys(data).map(key => key + '=' + data[key]).join('&');
-            console.log(q)
-            http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            http.send(q);
-        } else if (example === 2) {
-            let data = new FormData();
-            data.append("prodname", name);
-            data.append("item_id", item);
-            data.append("cost", cost);
-            data.append("quantity", event.target.parentElement.quantity.value);
-            fetch("api/add_to_cart.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                        "X-Requested-With": "XMLHttpRequest",
-                    },
-                    body: data
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                    flash(data.message, "success");
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-        } else if (example === 3) {
-            $.post("api/add_to_cart.php", {
-                    prodname: name,
-                    item_id: item,
-                    quantity: event.target.parentElement.quantity.value,
-                    cost: cost
-                }, (resp, status, xhr) => {
-                    console.log(resp, status, xhr);
-                    let data = JSON.parse(resp);
-                    flash(data.message, "success");
-                },
-                (xhr, status, error) => {
-                    console.log(xhr, status, error);
-                });
         }
+        http.open("POST", "api/add_to_cart.php", true);
+        let data = {
+            prodname: name,
+            item_id: item,
+            cost: cost,
+            quantity: event.target.parentElement.quantity.value
+
+        }
+        let q = Object.keys(data).map(key => key + '=' + data[key]).join('&');
+        console.log(q)
+        http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        http.send(q);
         //TODO create JS helper to update all show-balance elements
     }
-
 </script>
 
 <div class="container-fluid">

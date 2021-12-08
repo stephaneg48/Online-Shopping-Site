@@ -12,6 +12,7 @@ $cat = se($_GET, "category", "", false);
 $stock = se($_GET, "stock", "", false);
 $cost = se($_GET, "unit_price", "", false);
 $id = se($_GET, "id", "", false);
+$quantity = se($_GET, "quantity", "", false);
 
 
 
@@ -37,6 +38,37 @@ try {
 }
 
 ?>
+
+<script>
+    function add_to_cart(event, name, item, cost, quantity) {
+        console.log("TODO purchase item", item);
+        console.log(event);
+        let http = new XMLHttpRequest();
+        http.onreadystatechange = () => {
+            if (http.readyState == 4) {
+                if (http.status === 200) {
+                    let data = JSON.parse(http.responseText);
+                    console.log("received data", data);
+                    flash(data.message, "success");
+                }
+                console.log(http);
+            }
+        }
+        http.open("POST", "api/add_to_cart.php", true);
+        let data = {
+            prodname: name,
+            item_id: item,
+            cost: cost,
+            quantity: event.target.parentElement.quantity.value
+
+        }
+        let q = Object.keys(data).map(key => key + '=' + data[key]).join('&');
+        console.log(q)
+        http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        http.send(q);
+        //TODO create JS helper to update all show-balance elements
+    }
+</script>
 
 <div class="container-fluid">
     <div class="row row-cols-1 row-cols-md-5 g-4">
@@ -72,8 +104,13 @@ try {
                         </div>
                     <?php endif;?>
                 <?php endfor; ?>
-        <form>
-                            <button onclick="add_to_cart('<?php se($result, 'id'); ?>')" class="btn btn-primary">Add to Cart</button>
+                        <form>
+                        <?php if (is_logged_in()) : ?>
+                                <br><label for="quantity">Quantity:</label>
+                                <input type="number" max="99" id="quantity" name="quantity" value="<?php se($quantity); ?>" style="width:50px"></input><br><br>
+                                <button onclick="add_to_cart(event, '<?php se($result, 'name'); ?>', '<?php se($result, 'id'); ?>', '<?php se($result, 'unit_price'); ?>', 1)" class="btn btn-primary">Add to Cart</button>
+                            <!-- four parameters: name, item id, cost, quantity -->
+                            <?php endif; ?>
                         </form>
                         <?php if (has_role("Admin") || has_role("Shop Owner")) : ?>
                             <form action="<?php echo get_url('admin/edit_product.php'); ?>" method="POST">
