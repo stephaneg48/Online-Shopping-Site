@@ -49,11 +49,11 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
             return;
         }
         $db = getDB();
-        $stmt = $db->prepare("INSERT INTO Cart (item_id, user_id, quantity) VALUES (:item_id, :user_id, :quantity) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
+        $stmt = $db->prepare("INSERT INTO Cart (product_id, user_id, desired_quantity) VALUES (:product_id, :user_id, :desired_quantity) ON DUPLICATE KEY UPDATE quantity = quantity + :quantity");
         try {
             //if using bindValue, all must be bind value, can't split between this an execute assoc array
-            $stmt->bindValue(":quantity", $quantity, PDO::PARAM_INT);
-            $stmt->bindValue(":item_id", $item_id, PDO::PARAM_INT);
+            $stmt->bindValue(":desired_quantity", $quantity, PDO::PARAM_INT);
+            $stmt->bindValue(":product_id", $item_id, PDO::PARAM_INT);
             $stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);
             $stmt->execute();
             return true;
@@ -66,7 +66,7 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
     if($isValid){
         //get true price from DB, don't trust the client
         $db = getDB();
-        $stmt = $db->prepare("SELECT name,cost FROM Products where id = :id");
+        $stmt = $db->prepare("SELECT name, unit_price FROM Products where id = :id");
         $name = "";
         try {
             $stmt->execute([":id" => $item_id]);
