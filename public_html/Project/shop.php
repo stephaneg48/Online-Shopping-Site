@@ -81,7 +81,7 @@ try {
 
 
 <script>
-    function add_to_cart(event, item, cost, quantity) {
+    function add_to_cart(event, name, item, cost, quantity) {
         console.log("TODO purchase item", item);
         console.log(event);
         let example = 1;
@@ -99,6 +99,7 @@ try {
             }
             http.open("POST", "api/add_to_cart.php", true);
             let data = {
+                prodname: name,
                 item_id: item,
                 cost: cost,
                 quantity: event.target.parentElement.quantity.value
@@ -110,9 +111,10 @@ try {
             http.send(q);
         } else if (example === 2) {
             let data = new FormData();
+            data.append("prodname", name);
             data.append("item_id", item);
             data.append("cost", cost);
-            data.append("quantity", 1);
+            data.append("quantity", event.target.parentElement.quantity.value);
             fetch("api/add_to_cart.php", {
                     method: "POST",
                     headers: {
@@ -131,8 +133,9 @@ try {
                 });
         } else if (example === 3) {
             $.post("api/add_to_cart.php", {
+                    prodname: name,
                     item_id: item,
-                    quantity: 1,
+                    quantity: event.target.parentElement.quantity.value,
                     cost: cost
                 }, (resp, status, xhr) => {
                     console.log(resp, status, xhr);
@@ -230,8 +233,8 @@ try {
                             <?php if (is_logged_in()) : ?>
                                 <br><label for="quantity">Quantity:</label>
                                 <input type="number" max="99" id="quantity" name="quantity" value="<?php se($quantity); ?>" style="width:50px"></input><br><br>
-                                <button onclick="add_to_cart(event, '<?php se($item, 'id'); ?>', '<?php se($item, 'unit_price'); ?>', 1)" class="btn btn-primary">Add to Cart</button>
-                            <!-- three parameters: item, cost, quantity -->
+                                <button onclick="add_to_cart(event, '<?php se($item, 'name'); ?>', '<?php se($item, 'id'); ?>', '<?php se($item, 'unit_price'); ?>', 1)" class="btn btn-primary">Add to Cart</button>
+                            <!-- four parameters: name, item id, cost, quantity -->
                             <?php endif; ?>
                         </form>
                         <?php if (has_role("Admin") || has_role("Shop Owner")) : ?>
@@ -249,3 +252,8 @@ try {
         <?php endforeach; ?>
     </div>
 </div>
+
+<?php
+//note we need to go up 1 more directory
+require_once(__DIR__ . "/../../partials/flash.php");
+?>
