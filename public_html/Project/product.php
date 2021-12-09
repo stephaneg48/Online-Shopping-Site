@@ -48,6 +48,7 @@ try {
         console.log("TODO purchase item", item);
         console.log(event);
         let http = new XMLHttpRequest();
+        event.preventDefault
         http.onreadystatechange = () => {
             if (http.readyState == 4) {
                 if (http.status === 200) {

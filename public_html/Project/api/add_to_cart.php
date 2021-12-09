@@ -92,15 +92,12 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
     {
             add_item($name, $item_id, $cost, $uid, $quantity);
             http_response_code(200);
-            $response["message"] = "Added $quantity of $name to cart";
-            //success
-
     }
-    $response["message"] = join("<br>", $errors);
+    $response["message"] = "Added $quantity of $name to cart";
+    //success
 
 }
 echo json_encode($response);
-
 ?>
 
 <?php
