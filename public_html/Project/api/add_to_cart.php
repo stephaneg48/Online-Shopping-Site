@@ -52,7 +52,7 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
         }
         // continue here
         $db = getDB();
-        $stmt = $db->prepare("INSERT INTO Cart (unit_price, product_id, user_id, desired_quantity) VALUES (:unit_price, :product_id, :user_id, :desired_quantity) ON DUPLICATE KEY UPDATE desired_quantity = desired_quantity + :desired_quantity");
+        $stmt = $db->prepare("INSERT INTO Cart (unit_price, product_id, user_id, desired_quantity) VALUES (:unit_price, :product_id, :user_id, :desired_quantity) ON DUPLICATE KEY UPDATE desired_quantity = :desired_quantity");
         try {
             //if using bindValue, all must be bind value, can't split between this an execute assoc array
             //$stmt->bindValue(":name", $name, PDO::PARAM_STR);
