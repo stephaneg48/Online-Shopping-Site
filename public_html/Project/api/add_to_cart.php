@@ -52,10 +52,10 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
         }
         // continue here
         $db = getDB();
-        $stmt = $db->prepare("INSERT INTO Cart (name, unit_price, product_id, user_id, desired_quantity) VALUES (:name, :unit_price, :product_id, :user_id, :desired_quantity) ON DUPLICATE KEY UPDATE desired_quantity = desired_quantity + :desired_quantity");
+        $stmt = $db->prepare("INSERT INTO Cart (unit_price, product_id, user_id, desired_quantity) VALUES (:unit_price, :product_id, :user_id, :desired_quantity) ON DUPLICATE KEY UPDATE desired_quantity = desired_quantity + :desired_quantity");
         try {
             //if using bindValue, all must be bind value, can't split between this an execute assoc array
-            $stmt->bindValue(":name", $name, PDO::PARAM_STR);
+            //$stmt->bindValue(":name", $name, PDO::PARAM_STR);
             $stmt->bindValue(":unit_price", $cost, PDO::PARAM_INT);
             $stmt->bindValue(":product_id", $item_id, PDO::PARAM_INT);
             $stmt->bindValue(":user_id", $uid, PDO::PARAM_INT);
@@ -75,6 +75,7 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
         $name = "";
         try {
             $stmt->execute([":id" => $item_id]);
+            error_log("just finished grabbing product's info from Products table");
             $r = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($r) {
                 $cost = (int)se($r, "unit_price", "", false);
@@ -87,17 +88,21 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
             $isValid = false;
         }
     }
+
+    error_log("about to add to Cart");
     if ($isValid) 
 
     {
             add_item($name, $item_id, $cost, $uid, $quantity);
+            error_log("added to cart");
             http_response_code(200);
+            $response["message"] = "Added $quantity of $name to cart";
     }
-    $response["message"] = "Added $quantity of $name to cart";
+    error_log("outside of isValid");
     //success
-
+    echo json_encode($response);
 }
-echo json_encode($response);
+
 ?>
 
 <?php
