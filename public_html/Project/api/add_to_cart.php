@@ -32,7 +32,7 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
         array_push($errors, "Invalid cost");
         $isValid = false;
     }
-    if ($quantity <= 0) {
+    if ($quantity < 0) {
         //invalid quantity
         array_push($errors, "Invalid quantity");
         $isValid = false;
@@ -41,7 +41,7 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
     function add_item($name, $item_id, $cost, $uid, $quantity,$isUpdate)
     {
         error_log("add_item() Item name: $name Item ID: $item_id, User_id: $uid Cost: $cost Quantity $quantity");
-        if (/*$item_id <= 0 ||*/$uid <= 0 || $quantity === 0 || $cost === 0) {
+        if (/*$item_id <= 0 ||*/$uid <= 0 || ($quantity === 0 && !$isUpdate) || $cost === 0) {
             
             return;
         }
@@ -50,6 +50,9 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
         if($isUpdate){ // for cart page only
             $stmt = $db->prepare("INSERT INTO Cart (unit_price, product_id, user_id, desired_quantity) 
             VALUES (:unit_price, :product_id, :user_id, :desired_quantity) ON DUPLICATE KEY UPDATE desired_quantity = :desired_quantity");
+        }
+        elseif($isUpdate && ($quantity === 0)){ // for cart page only when the user wants to remove
+            $stmt = $db->prepare("DELETE FROM Cart where product_id = :item_id AND user_id = :uid");
         }
         else{ // for shop page only - only allowing user to add to cart from here, meaning that it should append to what they already have
             $stmt = $db->prepare("INSERT INTO Cart (unit_price, product_id, user_id, desired_quantity) 

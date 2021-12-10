@@ -35,8 +35,7 @@ try {
             {
                 if($detail == "subtotal")
                 {
-                    array_push($cart_subtotals
-                ,$value);
+                    array_push($cart_subtotals,$value);
                 }
             }
             
@@ -71,8 +70,12 @@ $cart_total = array_sum($cart_subtotals);
             prodname: name,
             item_id: item,
             cost: cost,
-            quantity: event.target.parentElement.quantity.value
+            quantity: event.target.parentElement.quantity.value            
 
+        }
+        if (event.target.parentElement.quantity.value == 0)
+        {
+            event.target.closest(".col").remove();
         }
         let q = Object.keys(data).map(key => key + '=' + data[key]).join('&');
         console.log(q)
