@@ -47,11 +47,11 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
         }
         // continue here
         $db = getDB();
-        if($isUpdate){
+        if($isUpdate){ // for cart page only
             $stmt = $db->prepare("INSERT INTO Cart (unit_price, product_id, user_id, desired_quantity) 
             VALUES (:unit_price, :product_id, :user_id, :desired_quantity) ON DUPLICATE KEY UPDATE desired_quantity = :desired_quantity");
         }
-        else{
+        else{ // for shop page only - only allowing user to add to cart from here, meaning that it should append to what they already have
             $stmt = $db->prepare("INSERT INTO Cart (unit_price, product_id, user_id, desired_quantity) 
             VALUES (:unit_price, :product_id, :user_id, :desired_quantity) ON DUPLICATE KEY UPDATE desired_quantity = desired_quantity + :desired_quantity");
         }

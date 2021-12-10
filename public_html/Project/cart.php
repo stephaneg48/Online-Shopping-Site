@@ -67,6 +67,7 @@ $cart_total = array_sum($cart_subtotals);
         }
         http.open("POST", "api/add_to_cart.php", true);
         let data = {
+            update: true,
             prodname: name,
             item_id: item,
             cost: cost,
@@ -107,7 +108,7 @@ $cart_total = array_sum($cart_subtotals);
                             <?php if (is_logged_in()) : ?>
                                 <br><label for="quantity">Quantity:</label>
                                 <input type="number" max="99" id="quantity" name="quantity" value="<?php se($item, "desired_quantity"); ?>" style="width:50px"></input><br><br>
-                                <button onclick="add_to_cart(event, '<?php se($item, 'name'); ?>', '<?php se($item, 'product_id'); ?>', '<?php se($item, 'unit_price'); ?>', 1)" class="btn btn-primary">Update</button>
+                                <button onclick="add_to_cart(event, '<?php se($item, 'name'); ?>', '<?php (int)se($item, 'product_id'); ?>', '<?php se($item, 'unit_price'); ?>', 1)" class="btn btn-primary">Update</button>
                             <!-- four parameters: name, item id, cost, quantity -->
                             <?php endif; ?>
                             <br><br><label for="subtotal" name="subtotal"></label>Subtotal: 
