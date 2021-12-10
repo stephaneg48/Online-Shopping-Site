@@ -18,7 +18,8 @@ $quantity = (int)se($_POST, "quantity", 0, false);
 $item_id = (int)se($_POST, "item_id", 0, false);
 
 $query = "SELECT Products.name, Cart.unit_price, Cart.product_id, user_id, desired_quantity, (Cart.unit_price * Cart.desired_quantity) as subtotal FROM Cart INNER JOIN Products ON Cart.product_id = Products.id WHERE user_id = $uid";
-$total = 0;
+$subtotal = 0;
+$cart_subtotals = [];
 $stmt = $db->prepare($query); //dynamically generated query
 
 
@@ -28,10 +29,23 @@ try {
     if ($r) {
         $results = $r;
     }
+    foreach($results as $item)
+        {
+            foreach($item as $detail => $value)
+            {
+                if($detail == "subtotal")
+                {
+                    array_push($cart_subtotals
+                ,$value);
+                }
+            }
+            
+        }
 } catch (PDOException $e) {
     flash("<pre>" . var_export($e, true) . "</pre>");
 }
 // ...
+$cart_total = array_sum($cart_subtotals);
 
 
 ?>
@@ -82,8 +96,8 @@ try {
                     </div>
 
                     <div class="card-body">
-                    <form method="GET">
-                        <a href="<?php echo get_url('product.php?id='); se($item, "id"); ?>"><h5 class="card-title"><?php se($item, "name"); ?></h5></a>
+                        <form method="GET">
+                        <a href="<?php echo get_url('product.php?id='); se($item, "product_id"); ?>"><h5 class="card-title"><?php se($item, "name"); ?></h5></a>
                         <p class="card-text"><?php se($item, "description"); ?></p>
                     </form>
                     </div>
@@ -98,7 +112,7 @@ try {
                             <?php endif; ?>
                             <br><br><label for="subtotal" name="subtotal"></label>Subtotal: 
                             <?php 
-                            $total += (int)se($item, "subtotal");
+                            $subtotal += (int)se($item, "subtotal");
                             ?>
                         </form>
                         
@@ -107,6 +121,16 @@ try {
             </div>
         <?php endforeach; ?>
     </div>
+    <br>
+    <div class="row row-cols-1 row-cols-md-3 g-5">
+        <div class="col">
+                <div class="card bg-light">
+                        <div class="card-header">
+                        Total: <?php echo $cart_total; ?>
+                        </div>
+                </div>
+            </div>
+        </div>
 </div>
 
 <?php

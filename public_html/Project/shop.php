@@ -82,6 +82,7 @@ try {
 
 <script>
     function add_to_cart(event, name, item, cost, quantity) {
+        event.preventDefault();
         console.log("TODO purchase item", item);
         console.log(event);
         let http = new XMLHttpRequest();
