@@ -15,7 +15,7 @@ $uid = get_user_id();
 $name = se($_POST, "name", "", false);
 $cost = (int)se($_POST, "cost", 0, false);
 $quantity = (int)se($_POST, "quantity", 0, false);
-$item_id = (int)se($_POST, "item_id", 0, false);
+$item_id = (int)se($_POST, "product_id", 0, false);
 
 $query = "SELECT Products.name, Cart.unit_price, Cart.product_id, user_id, desired_quantity, (Cart.unit_price * Cart.desired_quantity) as subtotal FROM Cart INNER JOIN Products ON Cart.product_id = Products.id WHERE user_id = $uid";
 $subtotal = 0;
@@ -107,7 +107,7 @@ $cart_total = array_sum($cart_subtotals);
                             <?php if (is_logged_in()) : ?>
                                 <br><label for="quantity">Quantity:</label>
                                 <input type="number" max="99" id="quantity" name="quantity" value="<?php se($item, "desired_quantity"); ?>" style="width:50px"></input><br><br>
-                                <button onclick="add_to_cart(event, '<?php se($item, 'name'); ?>', '<?php se($item, 'id'); ?>', '<?php se($item, 'unit_price'); ?>', 1)" class="btn btn-primary">Update</button>
+                                <button onclick="add_to_cart(event, '<?php se($item, 'name'); ?>', '<?php se($item, 'product_id'); ?>', '<?php se($item, 'unit_price'); ?>', 1)" class="btn btn-primary">Update</button>
                             <!-- four parameters: name, item id, cost, quantity -->
                             <?php endif; ?>
                             <br><br><label for="subtotal" name="subtotal"></label>Subtotal: 
@@ -124,8 +124,8 @@ $cart_total = array_sum($cart_subtotals);
     <br>
     <div class="row row-cols-1 row-cols-md-3 g-5">
         <div class="col">
-                <div class="card bg-light">
-                        <div class="card-header">
+                <div class="card bg-light" style="width:150px">
+                        <div class="card-header" >
                         Total: <?php echo $cart_total; ?>
                         </div>
                 </div>

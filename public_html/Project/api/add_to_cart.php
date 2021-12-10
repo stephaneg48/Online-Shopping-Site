@@ -20,9 +20,11 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
     $cost = (int)se($_POST, "cost", 0, false);
     error_log("cost is $cost");
     $isValid = true;
+    //from ajax send update=true if it's an update, otherwise ignore sending
+    //update would just be from cart page most likely so shop should remain as-is
+    $isUpdate = !!se($_POST,"update", false, false);
     $errors = [];
     if ($uid <= 0) {
-        //invald user
         array_push($errors, "Invalid user");
         $isValid = false;
     }
@@ -30,20 +32,13 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
         array_push($errors, "Invalid cost");
         $isValid = false;
     }
-    //I'll have predefined items loaded in at negative values
-    //so I don't need/want this check
-    /*if ($item_id <= 0) {
-        //invalid item
-        array_push($errors, "Invalid item");
-        $isValid = false;
-    }*/
     if ($quantity <= 0) {
         //invalid quantity
         array_push($errors, "Invalid quantity");
         $isValid = false;
     }
 
-    function add_item($name, $item_id, $cost, $uid, $quantity)
+    function add_item($name, $item_id, $cost, $uid, $quantity,$isUpdate)
     {
         error_log("add_item() Item name: $name Item ID: $item_id, User_id: $uid Cost: $cost Quantity $quantity");
         if (/*$item_id <= 0 ||*/$uid <= 0 || $quantity === 0 || $cost === 0) {
@@ -52,7 +47,15 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
         }
         // continue here
         $db = getDB();
-        $stmt = $db->prepare("INSERT INTO Cart (unit_price, product_id, user_id, desired_quantity) VALUES (:unit_price, :product_id, :user_id, :desired_quantity) ON DUPLICATE KEY UPDATE desired_quantity = :desired_quantity");
+        if($isUpdate){
+            $stmt = $db->prepare("INSERT INTO Cart (unit_price, product_id, user_id, desired_quantity) 
+            VALUES (:unit_price, :product_id, :user_id, :desired_quantity) ON DUPLICATE KEY UPDATE desired_quantity = :desired_quantity");
+        }
+        else{
+            $stmt = $db->prepare("INSERT INTO Cart (unit_price, product_id, user_id, desired_quantity) 
+            VALUES (:unit_price, :product_id, :user_id, :desired_quantity) ON DUPLICATE KEY UPDATE desired_quantity = desired_quantity + :desired_quantity");
+        }
+        
         try {
             //if using bindValue, all must be bind value, can't split between this an execute assoc array
             //$stmt->bindValue(":name", $name, PDO::PARAM_STR);
@@ -93,7 +96,7 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
     if ($isValid) 
 
     {
-            add_item($name, $item_id, $cost, $uid, $quantity);
+            add_item($name, $item_id, $cost, $uid, $quantity, $isUpdate);
             error_log("added to cart");
             http_response_code(200);
             $response["message"] = "Added $quantity of $name to cart";
