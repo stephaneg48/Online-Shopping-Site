@@ -193,7 +193,7 @@ try {
                             <label for="cost" name="cost"></label>Cost: <?php se($item, "unit_price"); ?>
                             <?php if (is_logged_in()) : ?>
                                 <br><label for="quantity">Quantity:</label>
-                                <input type="number" max="99" id="quantity" name="quantity" value="<?php se($quantity); ?>" style="width:50px"></input><br><br>
+                                <input type="number" min="0" max="99" id="quantity" name="quantity" value="<?php se($quantity); ?>" style="width:50px"></input><br><br>
                                 <button onclick="add_to_cart(event, '<?php se($item, 'name'); ?>', '<?php se($item, 'id'); ?>', '<?php se($item, 'unit_price'); ?>', 1)" class="btn btn-primary">Add to Cart</button>
                             <!-- four parameters: name, item id, cost, quantity -->
                             <?php endif; ?>

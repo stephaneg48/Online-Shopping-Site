@@ -20,9 +20,11 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
     $cost = (int)se($_POST, "cost", 0, false);
     error_log("cost is $cost");
     $isValid = true;
+    //from ajax send update=true if it's an update, otherwise ignore sending
+    //update would just be from cart page most likely so shop should remain as-is
+    $isUpdate = !!se($_POST,"update", false, false);
     $errors = [];
     if ($uid <= 0) {
-        //invald user
         array_push($errors, "Invalid user");
         $isValid = false;
     }
@@ -30,29 +32,43 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
         array_push($errors, "Invalid cost");
         $isValid = false;
     }
-    //I'll have predefined items loaded in at negative values
-    //so I don't need/want this check
-    /*if ($item_id <= 0) {
-        //invalid item
-        array_push($errors, "Invalid item");
-        $isValid = false;
-    }*/
-    if ($quantity <= 0) {
+    if ($quantity < 0) {
         //invalid quantity
         array_push($errors, "Invalid quantity");
         $isValid = false;
     }
 
-    function add_item($name, $item_id, $cost, $uid, $quantity)
+    function add_item($name, $item_id, $cost, $uid, $quantity,$isUpdate)
     {
         error_log("add_item() Item name: $name Item ID: $item_id, User_id: $uid Cost: $cost Quantity $quantity");
-        if (/*$item_id <= 0 ||*/$uid <= 0 || $quantity === 0 || $cost === 0) {
+        if (/*$item_id <= 0 ||*/$uid <= 0 || ($quantity === 0 && !$isUpdate) || $cost === 0) {
             
             return;
         }
         // continue here
         $db = getDB();
-        $stmt = $db->prepare("INSERT INTO Cart (unit_price, product_id, user_id, desired_quantity) VALUES (:unit_price, :product_id, :user_id, :desired_quantity) ON DUPLICATE KEY UPDATE desired_quantity = :desired_quantity");
+        if($isUpdate){ // for cart page only
+            if ($quantity === 0) // for cart page only when the user wants to remove
+            {
+                error_log("about to delete from cart the row that has product id $item_id and user id $uid");
+                $stmt = $db->prepare("DELETE FROM Cart WHERE product_id = :item_id AND user_id = :uid");
+                $stmt->bindValue(":item_id", $item_id, PDO::PARAM_INT);
+                $stmt->bindValue(":uid", $uid, PDO::PARAM_INT);
+                $stmt->execute();
+                return true;
+            }
+            else
+            {
+            error_log("about to update cart in cart page");
+            $stmt = $db->prepare("INSERT INTO Cart (unit_price, product_id, user_id, desired_quantity) 
+            VALUES (:unit_price, :product_id, :user_id, :desired_quantity) ON DUPLICATE KEY UPDATE desired_quantity = :desired_quantity");
+            }
+        }
+        else{ // for shop page only - only allowing user to add to cart from here, meaning that it should append to what they already have
+            $stmt = $db->prepare("INSERT INTO Cart (unit_price, product_id, user_id, desired_quantity) 
+            VALUES (:unit_price, :product_id, :user_id, :desired_quantity) ON DUPLICATE KEY UPDATE desired_quantity = desired_quantity + :desired_quantity");
+        }
+        
         try {
             //if using bindValue, all must be bind value, can't split between this an execute assoc array
             //$stmt->bindValue(":name", $name, PDO::PARAM_STR);
@@ -89,23 +105,28 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
         }
     }
 
-    error_log("about to add to Cart");
+    error_log("about to modify Cart");
     if ($isValid) 
 
     {
-            add_item($name, $item_id, $cost, $uid, $quantity);
+        if ($quantity === 0)
+        {
+            add_item($name, $item_id, $cost, $uid, $quantity, $isUpdate);
+            error_log("added to cart");
+            http_response_code(200);
+            $response["message"] = "Removed $name from cart";
+        }
+        else
+        {
+            add_item($name, $item_id, $cost, $uid, $quantity, $isUpdate);
             error_log("added to cart");
             http_response_code(200);
             $response["message"] = "Added $quantity of $name to cart";
+        }
     }
     error_log("outside of isValid");
     //success
     echo json_encode($response);
 }
 
-?>
-
-<?php
-//note we need to go up 1 more directory
-require_once(__DIR__ . "/../../../partials/flash.php");
 ?>
