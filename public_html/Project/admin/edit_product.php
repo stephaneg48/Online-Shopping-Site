@@ -57,7 +57,7 @@ error_log(var_export($_POST, true));
 $query .= " WHERE name LIKE :name";
 $params =  [":name" => "%$search%"];
 error_log(var_export($search, true));
-$query .= " ORDER BY modified desc LIMIT 10";
+$query .= " ORDER BY modified desc";
 $db = getDB();
 $stmt = $db->prepare($query);
 $products = [];

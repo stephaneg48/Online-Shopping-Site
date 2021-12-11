@@ -39,6 +39,7 @@ $query = "SELECT id, name, description, category, stock, unit_price, visibility 
 $name = se($_GET, "name", "", false);
 $cat = se($_GET, "category", "", false);
 $id = se($_GET, "id", "", false);
+$quantity = se($_GET, "quantity", "", false);
 
 // dynamic query for search
 $params = []; //define default params, add keys as needed and pass to execute
@@ -80,8 +81,33 @@ try {
 
 
 <script>
-    function purchase(item) {
+    function add_to_cart(event, name, item, cost, quantity) {
+        event.preventDefault();
         console.log("TODO purchase item", item);
+        console.log(event);
+        let http = new XMLHttpRequest();
+        http.onreadystatechange = () => {
+            if (http.readyState == 4) {
+                if (http.status === 200) {
+                    let data = JSON.parse(http.responseText);
+                    console.log("received data", data);
+                    flash(data.message, "success");
+                }
+                console.log(http);
+            }
+        }
+        http.open("POST", "api/add_to_cart.php", true);
+        let data = {
+            prodname: name,
+            item_id: item,
+            cost: cost,
+            quantity: event.target.parentElement.quantity.value
+
+        }
+        let q = Object.keys(data).map(key => key + '=' + data[key]).join('&');
+        console.log(q)
+        http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        http.send(q);
         //TODO create JS helper to update all show-balance elements
     }
 </script>
@@ -163,9 +189,14 @@ try {
                     </form>
                     </div>
                     <div class="card-footer">
-                        Cost: <?php se($item, "unit_price"); ?>
-                        <form>
-                            <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-primary">Add to Cart</button>
+                        <form method="POST">
+                            <label for="cost" name="cost"></label>Cost: <?php se($item, "unit_price"); ?>
+                            <?php if (is_logged_in()) : ?>
+                                <br><label for="quantity">Quantity:</label>
+                                <input type="number" min="0" max="99" id="quantity" name="quantity" value="<?php se($quantity); ?>" style="width:50px"></input><br><br>
+                                <button onclick="add_to_cart(event, '<?php se($item, 'name'); ?>', '<?php se($item, 'id'); ?>', '<?php se($item, 'unit_price'); ?>', 1)" class="btn btn-primary">Add to Cart</button>
+                            <!-- four parameters: name, item id, cost, quantity -->
+                            <?php endif; ?>
                         </form>
                         <?php if (has_role("Admin") || has_role("Shop Owner")) : ?>
                             <form action="<?php echo get_url('admin/edit_product.php'); ?>" method="POST">
@@ -182,3 +213,8 @@ try {
         <?php endforeach; ?>
     </div>
 </div>
+
+<?php
+//note we need to go up 1 more directory
+require_once(__DIR__ . "/../../partials/flash.php");
+?>
