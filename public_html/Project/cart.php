@@ -27,6 +27,14 @@ if(isset($_POST["delete"]))
     $stmt->execute();
 }
 
+if(isset($_POST["delete_all"]))
+{
+    $stmt = $db->prepare("DELETE FROM Cart where user_id = :uid");
+    $stmt->bindValue(":uid", $uid, PDO::PARAM_INT);
+    error_log("user id is $uid, about to clear this user's cart");
+    $stmt->execute();
+}
+
 $query = "SELECT Products.name, Cart.id, Cart.unit_price, Cart.product_id, user_id, desired_quantity, (Cart.unit_price * Cart.desired_quantity) as subtotal FROM Cart INNER JOIN Products ON Cart.product_id = Products.id WHERE user_id = $uid";
 $subtotal = 0;
 $cart_subtotals = [];
@@ -103,7 +111,7 @@ $cart_total = array_sum($cart_subtotals);
     <div class="row row-cols-1 row-cols-md-5 g-4">
         <?php if(count($results) == 0):?>
             
-            <br></br>No results
+            <br></br>  &emsp; Your cart is empty.
         <?php endif;?>
         <?php foreach ($results as $item) : ?>
             <div class="col">
@@ -144,10 +152,22 @@ $cart_total = array_sum($cart_subtotals);
     <br>
     <div class="row row-cols-1 row-cols-md-3 g-5">
         <div class="col">
-                <div class="card bg-light" style="width:150px">
+                <?php if ($cart_total != 0) : ?>
+                    <div class="card bg-light" style="width:150px">
                         <div class="card-header" >
-                        Total: <?php echo $cart_total; ?>
+                            Total: <?php echo $cart_total; ?>
                         </div>
+                    </div>
+                <?php endif; ?>
+
+                <div>
+                    <form method="POST">
+                        <br>
+                        <?php if ($cart_total != 0) : ?>
+                            <input type="hidden" name="uid" value="<?php se($item, 'user_id');?>"/>
+                            <input type="submit" name="delete_all" value="Remove All" class="btn btn-primary"/>
+                        <?php endif; ?>
+                    </form>
                 </div>
             </div>
         </div>
