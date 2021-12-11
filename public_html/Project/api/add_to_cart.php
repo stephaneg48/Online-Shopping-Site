@@ -48,11 +48,21 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
         // continue here
         $db = getDB();
         if($isUpdate){ // for cart page only
+            if ($quantity === 0) // for cart page only when the user wants to remove
+            {
+                error_log("about to delete from cart the row that has product id $item_id and user id $uid");
+                $stmt = $db->prepare("DELETE FROM Cart WHERE product_id = :item_id AND user_id = :uid");
+                $stmt->bindValue(":item_id", $item_id, PDO::PARAM_INT);
+                $stmt->bindValue(":uid", $uid, PDO::PARAM_INT);
+                $stmt->execute();
+                return true;
+            }
+            else
+            {
+            error_log("about to update cart in cart page");
             $stmt = $db->prepare("INSERT INTO Cart (unit_price, product_id, user_id, desired_quantity) 
             VALUES (:unit_price, :product_id, :user_id, :desired_quantity) ON DUPLICATE KEY UPDATE desired_quantity = :desired_quantity");
-        }
-        elseif($isUpdate && ($quantity === 0)){ // for cart page only when the user wants to remove
-            $stmt = $db->prepare("DELETE FROM Cart where product_id = :item_id AND user_id = :uid");
+            }
         }
         else{ // for shop page only - only allowing user to add to cart from here, meaning that it should append to what they already have
             $stmt = $db->prepare("INSERT INTO Cart (unit_price, product_id, user_id, desired_quantity) 
