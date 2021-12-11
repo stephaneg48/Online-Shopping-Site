@@ -160,7 +160,306 @@
 
  [https://sag48-prod.herokuapp.com/Project/product.php](https://sag48-prod.herokuapp.com/Project/product.php)</p></td></tr><tr><td>PRs:<p>
 
- [https://github.com/stephaneg48/it202-009/pull/80](https://github.com/stephaneg48/it202-009/pull/80)</p></td></tr><tr><td><table><tr><td>F5 - Demonstration<tr><td>Status: completed</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144863722-392ccd47-6207-4a4e-82e6-0b1a19945f92.png"><p>Screenshot to show product details page for one product, only additional info at this moment is the product's current stock, note the URL indicating the product ID</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144863878-b4811258-613f-4ace-8cb5-4fcd304b8ade.png"><p>Screenshot to show product details page for another product, note that the URL has changed to indicate that the product ID has changed and corresponds to the ID for the product in the table</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144864705-c9869b42-2a86-4464-88a1-d4f3ccf9ee2d.png"><p>Screenshot to show product details for another product while logged out, note that the URL has changed again</td></tr></td></tr></table></td></tr><table><tr><td>F6 - User must be logged in for any Cart related activity below ()</td></tr><tr><td>Status: pending</td></tr><tr><td>Links:</td></tr><tr><td>PRs:</td></tr><tr><td><table><tr><td>F6 - item 1<tr><td>Status: pending</td></tr><tr><td><img width="600px" src=""><p></td></tr></td></tr></table></td></tr><table><tr><td>F7 - User will be able to add items to Cart ()</td></tr><tr><td>Status: pending</td></tr><tr><td>Links:</td></tr><tr><td>PRs:</td></tr><tr><td><table><tr><td>F7 - Cart will be table-based (id, product_id, user_id, desired_quantity, unit_cost, created, modified)<tr><td>Status: pending</td></tr><tr><td><img width="600px" src=""><p></td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F7 - Adding items to Cart will not affect the Product's quantity in the Products table<tr><td>Status: pending</td></tr><tr><td><img width="600px" src=""><p></td></tr></td></tr></table></td></tr><table><tr><td>F8 - User will be able to see their cart ()</td></tr><tr><td>Status: pending</td></tr><tr><td>Links:</td></tr><tr><td>PRs:</td></tr><tr><td><table><tr><td>F8 - List all the items<tr><td>Status: pending</td></tr><tr><td><img width="600px" src=""><p></td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F8 - Show subtotal for each line item based on desired_quantity * unit_cost<tr><td>Status: pending</td></tr><tr><td><img width="600px" src=""><p></td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F8 - Show total cart value (sum of line item subtotals)<tr><td>Status: pending</td></tr><tr><td><img width="600px" src=""><p></td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F8 - Will be able to click an item to see more details (Product Details Page)<tr><td>Status: pending</td></tr><tr><td><img width="600px" src=""><p></td></tr></td></tr></table></td></tr><table><tr><td>F9 - User will be able to change quantity of items in their cart ()</td></tr><tr><td>Status: pending</td></tr><tr><td>Links:</td></tr><tr><td>PRs:</td></tr><tr><td><table><tr><td>F9 - Quantity of 0 should also remove from cart<tr><td>Status: pending</td></tr><tr><td><img width="600px" src=""><p></td></tr></td></tr></table></td></tr><table><tr><td>F10 - User will be able to remove a single item from their cart via button click ()</td></tr><tr><td>Status: pending</td></tr><tr><td>Links:</td></tr><tr><td>PRs:</td></tr><tr><td><table><tr><td>F10 - item 1<tr><td>Status: pending</td></tr><tr><td><img width="600px" src=""><p></td></tr></td></tr></table></td></tr><table><tr><td>F11 - User will be able to clear their entire cart via a button click ()</td></tr><tr><td>Status: pending</td></tr><tr><td>Links:</td></tr><tr><td>PRs:</td></tr><tr><td><table><tr><td>F11 - item 1<tr><td>Status: pending</td></tr><tr><td><img width="600px" src=""><p></td></tr></td></tr></table></td></tr></td></tr></table>
+ [https://github.com/stephaneg48/it202-009/pull/80](https://github.com/stephaneg48/it202-009/pull/80)</p></td></tr><tr><td><table><tr><td>F5 - Demonstration<tr><td>Status: completed</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144863722-392ccd47-6207-4a4e-82e6-0b1a19945f92.png"><p>Screenshot to show product details page for one product, only additional info at this moment is the product's current stock, note the URL indicating the product ID</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144863878-b4811258-613f-4ace-8cb5-4fcd304b8ade.png"><p>Screenshot to show product details page for another product, note that the URL has changed to indicate that the product ID has changed and corresponds to the ID for the product in the table</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144864705-c9869b42-2a86-4464-88a1-d4f3ccf9ee2d.png"><p>Screenshot to show product details for another product while logged out, note that the URL has changed again</td></tr></td></tr></table></td></tr>
+
+<table>
+<tr><td>Milestone 2 (cont.)</td></tr><tr><td>
+<table>
+<tr><td>F6 - User must be logged in for any Cart related activity below (2021-12-09)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://sag48-prod.herokuapp.com/Project/cart.php](https://sag48-prod.herokuapp.com/Project/cart.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/stephaneg48/it202-009/pull/86](https://github.com/stephaneg48/it202-009/pull/86)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F1 - Demonstration</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145662770-f72fc871-d136-4671-87ba-ed7911de1306.png">
+<p>Screenshot of user on login page attempting to view cart page without being logged in</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145662790-c973674f-b223-4574-95d9-851d1e9519b3.png">
+<p>Screenshot of user being redirected to login screen after attempt with warning message</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145662871-a60a74de-1608-446a-b349-3970e96dbaac.png">
+<p>Screenshot of VS Code with code preventing user from accessing cart highlighted</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145662906-b07cd5e3-c829-4d90-83af-17c8870f1f10.png">
+<p>Screenshot of shop page while logged out (user cannot add to cart)</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145662933-a7083ae8-b1da-4a29-8e59-400c0b2b4e9e.png">
+<p>Screenshot of random product details page while logged out (user cannot add to cart)</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F7 - User will be able to add items to Cart (2021-12-09)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://sag48-prod.herokuapp.com/Project/shop.php](https://sag48-prod.herokuapp.com/Project/shop.php)</p><p>
+
+ [https://sag48-prod.herokuapp.com/Project/product.php](https://sag48-prod.herokuapp.com/Project/product.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/stephaneg48/it202-009/pull/86](https://github.com/stephaneg48/it202-009/pull/86)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F7 - Cart will be table-based (id, product_id, user_id, desired_quantity, unit_cost, created, modified)</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663114-a98a21b1-1d74-4f6c-a1f9-52d1b557e108.png">
+<p>Screenshot of VS Code showing Cart table</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr><td>
+<table>
+<tr><td>F7 - Adding items to Cart will not affect the Product's quantity in the Products table</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663162-2c79601f-42e7-4256-b522-6f26190b41bd.png">
+<p>Screenshot of user about to add 10 of product "Ultra Ball" to their cart</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663191-e83f5071-50a2-4677-bffa-6b27c23ab5f8.png">
+<p>Screenshot of shop page after user adds 10 of product "Ultra Ball" to their cart</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663227-501652c5-cc92-4660-a151-42967ced98d3.png">
+<p>Screenshot of product details page for product "Hyper Potion" before user adds 5 of the product to their cart</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663250-6005f80e-ecd8-488b-8437-302e6030ee2f.png">
+<p>Screenshot of product details page for product "Hyper Potion" after user adds 5 of the product to their cart</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663274-9745505a-294c-4f30-a1a4-dc14d2631d77.png">
+<p>Screenshot of VS Code showing Cart table to verify that the products have actually been added, note the prices and desired quantities for user_id "5"</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663311-9b3e80a1-9963-4782-8393-efed8237106d.png">
+<p>Screenshot of VS Code showing Products table after adding to cart, note the stocks have not changed from what was displayed in the product details page</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F8 - User will be able to see their cart (2021-12-09)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://sag48-prod.herokuapp.com/Project/cart.php](https://sag48-prod.herokuapp.com/Project/cart.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/stephaneg48/it202-009/pull/86](https://github.com/stephaneg48/it202-009/pull/86)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F8 - List all the items</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663413-d1f188c8-9fca-454d-9941-d5375b69c9cb.png">
+<p>Screenshot of cart page, listing all of the items</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663438-7403c473-4f0d-4f9c-aad6-2d926b7c7c35.png">
+<p>Screenshot of VS Code to verify cart for current user, note prices and desired quantities</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr><td>
+<table>
+<tr><td>F8 - Show subtotal for each line item based on desired_quantity * unit_cost</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663413-d1f188c8-9fca-454d-9941-d5375b69c9cb.png">
+<p>Screenshot of cart page, note the subtotal on the bottom of each listed product</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr><td>
+<table>
+<tr><td>F8 - Show total cart value (sum of line item subtotals)</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663413-d1f188c8-9fca-454d-9941-d5375b69c9cb.png">
+<p>Screenshot of cart page, note the total value listed below the product cards</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr><td>
+<table>
+<tr><td>F8 - Will be able to click an item to see more details (Product Details Page)</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663413-d1f188c8-9fca-454d-9941-d5375b69c9cb.png">
+<p>Screenshot of cart page, note the bottom left of the browser when mousing over the product "Ultra Ball"; previews link that will redirect the user to the product details page for "Ultra Ball"</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F9 - User will be able to change quantity of items in their cart (2021-12-10)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://sag48-prod.herokuapp.com/Project/cart.php](https://sag48-prod.herokuapp.com/Project/cart.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/stephaneg48/it202-009/pull/87](https://github.com/stephaneg48/it202-009/pull/87)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F9 - Quantity of 0 should also remove from cart</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663413-d1f188c8-9fca-454d-9941-d5375b69c9cb.png">
+<p>Screenshot of shop page</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663564-2ac727ce-0291-4e37-8d9a-d1f08c0b7352.png">
+<p>Screenshot of shop page after user modifies quantity of product "Ultra Ball" from 10 to 5</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663627-08c6c22d-6d13-40c1-aed3-3815c94a1f88.png">
+<p>Screenshot of shop page after user modifies quantity of product "Ultra Ball" from 5 to 0</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F10 - User will be able to remove a single item from their cart via button click (2021-12-10)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://sag48-prod.herokuapp.com/Project/cart.php](https://sag48-prod.herokuapp.com/Project/cart.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/stephaneg48/it202-009/pull/87](https://github.com/stephaneg48/it202-009/pull/87)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F10 - Demonstration</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663687-06c52411-1c07-4a73-acb5-727e3688da00.png">
+<p>Screenshot of cart page</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663701-cfaea13f-fae9-4bed-bb7b-d438d23af573.png">
+<p>Screenshot of cart page after clicking "Remove from Cart" under product "Hyper Potion"</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F11 - User will be able to clear their entire cart via a button click (2021-12-10)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://sag48-prod.herokuapp.com/Project/cart.php](https://sag48-prod.herokuapp.com/Project/cart.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/stephaneg48/it202-009/pull/87](https://github.com/stephaneg48/it202-009/pull/87)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F11 - Demonstration</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663763-93668ee1-5807-4d82-9aed-2e20eb124d06.png">
+<p>Screenshot of cart page with four products</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663805-1532b865-77ec-48b9-a57d-4d362c4e0877.png">
+<p>Screenshot of cart page after clicking "Remove All" button</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663832-8fd44e02-b579-404b-9418-84c6a67bd999.png">
+<p>Screenshot of VS Code with PHP code to remove all products from a user's cart highlighted</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663857-e821dfd3-45c5-4b69-a0de-29d7f3a892fe.png">
+<p>Screenshot of VS Code with HTML to remove all products from a user's cart highlighted</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr></td></tr></table>
 
 
 - Milestone 3
