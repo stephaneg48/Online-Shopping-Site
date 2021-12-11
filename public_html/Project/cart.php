@@ -17,9 +17,22 @@ $cost = (int)se($_POST, "cost", 0, false);
 $quantity = (int)se($_POST, "quantity", 0, false);
 $item_id = (int)se($_POST, "product_id", 0, false);
 
-$query = "SELECT Products.name, Cart.unit_price, Cart.product_id, user_id, desired_quantity, (Cart.unit_price * Cart.desired_quantity) as subtotal FROM Cart INNER JOIN Products ON Cart.product_id = Products.id WHERE user_id = $uid";
+$cart_id = (int)se($_POST, "cart_id", 0, false);
+
+if(isset($_POST["delete"]))
+{
+    $stmt = $db->prepare("DELETE FROM Cart where id = :cart_id");
+    $stmt->bindValue(":cart_id", $cart_id, PDO::PARAM_INT);
+    error_log("cart id is $cart_id");
+    $stmt->execute();
+}
+
+$query = "SELECT Products.name, Cart.id, Cart.unit_price, Cart.product_id, user_id, desired_quantity, (Cart.unit_price * Cart.desired_quantity) as subtotal FROM Cart INNER JOIN Products ON Cart.product_id = Products.id WHERE user_id = $uid";
 $subtotal = 0;
 $cart_subtotals = [];
+
+
+
 $stmt = $db->prepare($query); //dynamically generated query
 
 
@@ -73,7 +86,7 @@ $cart_total = array_sum($cart_subtotals);
             quantity: event.target.parentElement.quantity.value            
 
         }
-        if (event.target.parentElement.quantity.value == 0)
+        if (event.target.parentElement.quantity.value == 0 || event.target.on)
         {
             event.target.closest(".col").remove();
         }
@@ -112,6 +125,9 @@ $cart_total = array_sum($cart_subtotals);
                                 <br><label for="quantity">Quantity:</label>
                                 <input type="number" max="99" id="quantity" name="quantity" value="<?php se($item, "desired_quantity"); ?>" style="width:50px"></input><br><br>
                                 <button onclick="add_to_cart(event, '<?php se($item, 'name'); ?>', '<?php (int)se($item, 'product_id'); ?>', '<?php se($item, 'unit_price'); ?>', 1)" class="btn btn-primary">Update</button>
+
+                                <input type="hidden" name="cart_id" value="<?php se($item, 'id');?>"/>
+                                <input type="submit" name="delete" value="Remove from Cart" class="btn btn-primary"/>
                             <!-- four parameters: name, item id, cost, quantity -->
                             <?php endif; ?>
                             <br><br><label for="subtotal" name="subtotal"></label>Subtotal: 
