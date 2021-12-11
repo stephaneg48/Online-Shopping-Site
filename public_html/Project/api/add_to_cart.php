@@ -105,23 +105,28 @@ if (isset($_POST["item_id"]) && isset($_POST["quantity"]) && isset($_POST["cost"
         }
     }
 
-    error_log("about to add to Cart");
+    error_log("about to modify Cart");
     if ($isValid) 
 
     {
+        if ($quantity === 0)
+        {
+            add_item($name, $item_id, $cost, $uid, $quantity, $isUpdate);
+            error_log("added to cart");
+            http_response_code(200);
+            $response["message"] = "Removed $name from cart";
+        }
+        else
+        {
             add_item($name, $item_id, $cost, $uid, $quantity, $isUpdate);
             error_log("added to cart");
             http_response_code(200);
             $response["message"] = "Added $quantity of $name to cart";
+        }
     }
     error_log("outside of isValid");
     //success
     echo json_encode($response);
 }
 
-?>
-
-<?php
-//note we need to go up 1 more directory
-require_once(__DIR__ . "/../../../partials/flash.php");
 ?>
