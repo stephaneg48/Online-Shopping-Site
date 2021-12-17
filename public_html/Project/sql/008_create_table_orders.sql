@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS `Orders`(
     ,`address` TEXT NOT NULL
     ,`payment_method` TEXT NOT NULL
     ,`created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    ,FOREIGN KEY (`product_id`) REFERENCES Products(id)
     ,FOREIGN KEY (`user_id`) REFERENCES Users(id)
     ,UNIQUE KEY (`user_id`)
 )
