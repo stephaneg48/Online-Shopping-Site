@@ -5,8 +5,5 @@ CREATE TABLE IF NOT EXISTS `OrderItems`(
     ,`quantity` INT DEFAULT 0
     ,`unit_price` INT NOT NULL DEFAULT 0
     ,FOREIGN KEY (`order_id`) REFERENCES Orders(id)
-    ,FOREIGN KEY (`product_id`) REFERENCES Cart(product_id)
-    ,FOREIGN KEY (`quantity`) REFERENCES Cart(desired_quantity)
-    ,FOREIGN KEY (`unit_price`) REFERENCES Cart(unit_price)
-    ,UNIQUE KEY (`order_id`)
+    ,FOREIGN KEY (`product_id`) REFERENCES Products(id)
 )
