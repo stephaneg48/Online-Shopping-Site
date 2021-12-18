@@ -45,15 +45,14 @@ try {
 
 $cart_total = array_sum($cart_subtotals);
 
-$stmt = "INSERT INTO OrderItems (product_id, quantity, unit_cost, order_id) 
-SELECT Products.name, 
-Cart.id, 
-Cart.unit_price, 
-Cart.product_id, 
-user_id, 
-desired_quantity, 
-:order_id, 
-(Cart.unit_price * Cart.desired_quantity) as subtotal FROM Cart INNER JOIN Products ON Cart.product_id = Products.id WHERE user_id = $uid";
+$stmt = "INSERT INTO OrderItems (product_id, quantity, unit_price, order_id) 
+SELECT product_id, desired_quantity, unit_price, :order_id FROM Cart WHERE user_id = $uid";
+
+// currently have cart...
+// display items from cart or display from orderitems?
+// on purchase, the above statement should run (i think)?
+// then the cart should be emptied, products (and shop, if stock runs out) should be updated...
+// then the user should be redirected to successful checkout page?
 
 ?>
 
@@ -80,11 +79,8 @@ desired_quantity,
                         <form method="POST">
                             <label for="cost" name="cost"></label>Cost: <?php se($item, "unit_price"); ?>
                             <?php if (is_logged_in()) : ?>
-                                <br><label for="quantity">Quantity:</label>
-                                <input type="number" min="0" max="99" id="quantity" name="quantity" value="<?php se($item, "desired_quantity"); ?>" style="width:50px"></input><br><br>
-                                <button onclick="add_to_cart(event, '<?php se($item, 'name'); ?>', '<?php (int)se($item, 'product_id'); ?>', '<?php se($item, 'unit_price'); ?>', 1)" class="btn btn-primary">Update</button>
+                                <br>Quantity: <?php se($item, "desired_quantity"); ?>
                                 <input type="hidden" name="cart_id" value="<?php se($item, 'id');?>"/>
-                                <input type="submit" name="delete" value="Remove from Cart" class="btn btn-primary"/>
                             <!-- four parameters: name, item id, cost, quantity -->
                             <?php endif; ?>
                             <br><br><label for="subtotal" name="subtotal"></label>Subtotal: 
