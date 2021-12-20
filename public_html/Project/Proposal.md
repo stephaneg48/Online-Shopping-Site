@@ -138,233 +138,489 @@
           - Screenshot #2 description: Shows successful password change for the user with verification message
 
 
-- Milestone 2
+<table><tr><td>Milestone 2</td></tr><tr><td><table><tr><td>F1 - User with an admin role or shop owner role will be able to add products to inventory (2021-11-28)</td></tr><tr><td>Status: complete</td></tr><tr><td>Links:<p>
 
-  - [ ] (mm/dd/yyyy of completion) User with an admin role or shop owner role will be able to add products to inventory
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+ [https://sag48-prod.herokuapp.com/Project/admin/add_product.php](https://sag48-prod.herokuapp.com/Project/admin/add_product.php)</p></td></tr><tr><td>PRs:<p>
 
-  - [ ] (mm/dd/yyyy of completion) Any user will be able to see products with visibility = true on the Shop page
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+ [https://github.com/stephaneg48/it202-009/pull/77](https://github.com/stephaneg48/it202-009/pull/77)</p></td></tr><tr><td><table><tr><td>F1 - Table should be called Products (id, name, description, category, stock, created, modified, unit_price, visibility [true, false])<tr><td>Status: completed</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144793623-26ce671f-9d57-406e-b6b1-6991d7cdbae5.png"><p>Screenshot of Products table in VS Code</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144794034-2e68820f-fde0-44bd-8ea8-dce3237748d8.png"><p>Screenshot of Add Product page with information for a new product filled in</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144794149-c4d0da87-334a-4473-83a9-3826746845d6.png"><p>Screenshot of Add Product page after successfully adding the new product to the Shop</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144794297-cd924f21-23f8-470e-ba62-6847c154cc1c.png"><p>Screenshot of shop page verifying that the new product now exists</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144794385-4d7f0cea-7532-4fb1-a55b-a98d4baf7b73.png"><p>Screenshot of home page revealing the Add Product page while logged in as an admin/shop owner</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144794486-02bc9bed-add6-44d9-9480-d45365166d27.png"><p>Screenshot of home page while logged in as a regular user to verify that regular users cannot add products</td></tr></td></tr></table></td></tr><table><tr><td>F2 - Any user will be able to see products with visibility = true on the Shop page (2021-12-04)</td></tr><tr><td>Status: complete</td></tr><tr><td>Links:<p>
 
-  - [ ] (mm/dd/yyyy of completion) Admin/Shop owner will be able to see products with any visibility
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+ [https://sag48-prod.herokuapp.com/Project/shop.php](https://sag48-prod.herokuapp.com/Project/shop.php)</p></td></tr><tr><td>PRs:<p>
 
-  - [ ] (mm/dd/yyyy of completion) Admin/Shop owner will be able to edit any product
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+ [https://github.com/stephaneg48/it202-009/pull/79](https://github.com/stephaneg48/it202-009/pull/79)</p></td></tr><tr><td><table><tr><td>F2 - Product list page will be public (i.e. doesn’t require login)<tr><td>Status: completed</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144848889-34f8c236-48da-4164-ae07-668eb7040496.png"><p>Screenshot to verify that shop page can be viewed without being logged in, see navigation bar</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F2 - For now limit results to 10 most recent<tr><td>Status: completed</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144852381-cffc5dad-68a1-4a3c-a03f-46b7785d49ce.png"><p>Screenshot of VS Code database to verify that the 10 most recent entries in the Products table are the products that have been displayed in previous screenshots</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F2 - User will be able to filter results by category<tr><td>Status: completed</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144852610-a3921877-9154-4e8c-8959-02e399b49eaf.png"><p>Screenshot of the shop page after filtering by category "Technical Machine", it includes the newly added item from previous screenshots because it was created under this category</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F2 - User will be able to filter results by partial matches on the name<tr><td>Status: completed</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144852916-20631b6e-67b2-468b-85f7-9dfc42097f09.png"><p>Screenshot of the shop page after filtering by name with the string "pot", leading to only products that have "pot" in the name</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F2 - User will be able to sort results by price<tr><td>Status: completed</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144853205-4b0129f7-d48a-4603-a015-a94d34a6fb92.png"><p>Screenshot that shows the shop being sorted by price in descending order, previous screenshots of the shop with default filters show it in ascending order</td></tr></td></tr></table></td></tr><table><tr><td>F3 - Admin/Shop owner will be able to see products with any visibility (2021-12-02)</td></tr><tr><td>Status: complete</td></tr><tr><td>Links:<p>
 
-  - [ ] (mm/dd/yyyy of completion) User will be able to click an item from a list and view a full page with more info about the item (Product Details Page)
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+ [https://sag48-prod.herokuapp.com/Project/admin/edit_product.php](https://sag48-prod.herokuapp.com/Project/admin/edit_product.php)</p></td></tr><tr><td>PRs:<p>
 
-  - [ ] (mm/dd/yyyy of completion) User must be logged in for any Cart related activity below
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+ [https://github.com/stephaneg48/it202-009/pull/78](https://github.com/stephaneg48/it202-009/pull/78)</p></td></tr><tr><td><table><tr><td>F3 - This should be a separate page from Shop, but will be similar<tr><td>Status: completed</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144854741-63f97d01-3ccd-4154-85d4-ecd445916562.png"><p>Screenshot to show the Edit Product page, which lists all existing products to admin/shop owner regardless of visibility</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F3 - This page should only be accessible to the appropriate role(s)<tr><td>Status: completed</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144855066-160819f6-966f-47d1-87b3-9fb82fc5824e.png"><p>Screenshot to show a regular user being redirected upon attempting to view the Edit Product page while it is accessible only to admin/shop owner</td></tr></td></tr></table></td></tr><table><tr><td>F4 - Admin/Shop owner will be able to edit any product ()</td></tr><tr><td>Status: complete</td></tr><tr><td>Links:<p>
 
-  - [ ] (mm/dd/yyyy of completion) User will be able to add items to Cart
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+ [https://sag48-prod.herokuapp.com/Project/admin/edit_product.php](https://sag48-prod.herokuapp.com/Project/admin/edit_product.php)</p></td></tr><tr><td>PRs:<p>
 
-  - [ ] (mm/dd/yyyy of completion) User will be able to see their cart
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+ [https://github.com/stephaneg48/it202-009/pull/78](https://github.com/stephaneg48/it202-009/pull/78)</p><p>
 
-  - [ ] (mm/dd/yyyy of completion) User will be able to change quantity of items in their cart
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+ [https://github.com/stephaneg48/it202-009/pull/80](https://github.com/stephaneg48/it202-009/pull/80)</p></td></tr><tr><td><table><tr><td>F4 - Edit button should be accessible for the appropriate role(s) anywhere a product is shown (Shop list, Product Details Page, etc)<tr><td>Status: completed</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144855479-942c5b6e-a6f0-4376-ace2-59e57652ad9f.png"><p>Screenshot to show the Edit button being accessible for admin/shop owner on the Shop page</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144855626-c83e87d7-13d3-4616-b8f6-49fbd0efd9d1.png"><p>Screenshot to show the Edit button being accessible for admin/shop owner on a product details page</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144855707-8810fe41-c58e-4dc7-9537-e79411ca924d.png"><p>Screenshot to show the Edit Product page after clicking Edit Product for "Revive" in the previous screenshot; page successfully filters this one product</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144863122-80ca8fb9-7223-4fd7-b685-ec3d61b3f45a.png"><p>Screenshot to show product "Revive" and the successful update of its price</td></tr></td></tr></table></td></tr><table><tr><td>F5 - User will be able to click an item from a list and view a full page with more info about the item (Product Details Page) (2021-12-05)</td></tr><tr><td>Status: complete</td></tr><tr><td>Links:<p>
 
-  - [ ] (mm/dd/yyyy of completion) User will be able to remove a single item from their cart via button click
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+ [https://sag48-prod.herokuapp.com/Project/product.php](https://sag48-prod.herokuapp.com/Project/product.php)</p></td></tr><tr><td>PRs:<p>
 
-  - [ ] (mm/dd/yyyy of completion) User will be able to clear their entire cart via a button click
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+ [https://github.com/stephaneg48/it202-009/pull/80](https://github.com/stephaneg48/it202-009/pull/80)</p></td></tr><tr><td><table><tr><td>F5 - Demonstration<tr><td>Status: completed</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144863722-392ccd47-6207-4a4e-82e6-0b1a19945f92.png"><p>Screenshot to show product details page for one product, only additional info at this moment is the product's current stock, note the URL indicating the product ID</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144863878-b4811258-613f-4ace-8cb5-4fcd304b8ade.png"><p>Screenshot to show product details page for another product, note that the URL has changed to indicate that the product ID has changed and corresponds to the ID for the product in the table</td></tr><tr><td><img width="600px" src="https://user-images.githubusercontent.com/90262925/144864705-c9869b42-2a86-4464-88a1-d4f3ccf9ee2d.png"><p>Screenshot to show product details for another product while logged out, note that the URL has changed again</td></tr></td></tr></table></td></tr>
+
+<table>
+<tr><td>Milestone 2 (cont.)</td></tr><tr><td>
+<table>
+<tr><td>F6 - User must be logged in for any Cart related activity below (2021-12-09)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://sag48-prod.herokuapp.com/Project/cart.php](https://sag48-prod.herokuapp.com/Project/cart.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/stephaneg48/it202-009/pull/86](https://github.com/stephaneg48/it202-009/pull/86)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F1 - Demonstration</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145662770-f72fc871-d136-4671-87ba-ed7911de1306.png">
+<p>Screenshot of user on login page attempting to view cart page without being logged in</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145662790-c973674f-b223-4574-95d9-851d1e9519b3.png">
+<p>Screenshot of user being redirected to login screen after attempt with warning message</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145662871-a60a74de-1608-446a-b349-3970e96dbaac.png">
+<p>Screenshot of VS Code with code preventing user from accessing cart highlighted</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145662906-b07cd5e3-c829-4d90-83af-17c8870f1f10.png">
+<p>Screenshot of shop page while logged out (user cannot add to cart)</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145662933-a7083ae8-b1da-4a29-8e59-400c0b2b4e9e.png">
+<p>Screenshot of random product details page while logged out (user cannot add to cart)</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F7 - User will be able to add items to Cart (2021-12-09)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://sag48-prod.herokuapp.com/Project/shop.php](https://sag48-prod.herokuapp.com/Project/shop.php)</p><p>
+
+ [https://sag48-prod.herokuapp.com/Project/product.php](https://sag48-prod.herokuapp.com/Project/product.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/stephaneg48/it202-009/pull/86](https://github.com/stephaneg48/it202-009/pull/86)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F7 - Cart will be table-based (id, product_id, user_id, desired_quantity, unit_cost, created, modified)</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663114-a98a21b1-1d74-4f6c-a1f9-52d1b557e108.png">
+<p>Screenshot of VS Code showing Cart table</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr><td>
+<table>
+<tr><td>F7 - Adding items to Cart will not affect the Product's quantity in the Products table</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663162-2c79601f-42e7-4256-b522-6f26190b41bd.png">
+<p>Screenshot of user about to add 10 of product "Ultra Ball" to their cart</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663191-e83f5071-50a2-4677-bffa-6b27c23ab5f8.png">
+<p>Screenshot of shop page after user adds 10 of product "Ultra Ball" to their cart</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663227-501652c5-cc92-4660-a151-42967ced98d3.png">
+<p>Screenshot of product details page for product "Hyper Potion" before user adds 5 of the product to their cart</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663250-6005f80e-ecd8-488b-8437-302e6030ee2f.png">
+<p>Screenshot of product details page for product "Hyper Potion" after user adds 5 of the product to their cart</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663274-9745505a-294c-4f30-a1a4-dc14d2631d77.png">
+<p>Screenshot of VS Code showing Cart table to verify that the products have actually been added, note the prices and desired quantities for user_id "5"</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663311-9b3e80a1-9963-4782-8393-efed8237106d.png">
+<p>Screenshot of VS Code showing Products table after adding to cart, note the stocks have not changed from what was displayed in the product details page</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F8 - User will be able to see their cart (2021-12-09)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://sag48-prod.herokuapp.com/Project/cart.php](https://sag48-prod.herokuapp.com/Project/cart.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/stephaneg48/it202-009/pull/86](https://github.com/stephaneg48/it202-009/pull/86)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F8 - List all the items</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663413-d1f188c8-9fca-454d-9941-d5375b69c9cb.png">
+<p>Screenshot of cart page, listing all of the items</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663438-7403c473-4f0d-4f9c-aad6-2d926b7c7c35.png">
+<p>Screenshot of VS Code to verify cart for current user, note prices and desired quantities</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr><td>
+<table>
+<tr><td>F8 - Show subtotal for each line item based on desired_quantity * unit_cost</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663413-d1f188c8-9fca-454d-9941-d5375b69c9cb.png">
+<p>Screenshot of cart page, note the subtotal on the bottom of each listed product</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr><td>
+<table>
+<tr><td>F8 - Show total cart value (sum of line item subtotals)</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663413-d1f188c8-9fca-454d-9941-d5375b69c9cb.png">
+<p>Screenshot of cart page, note the total value listed below the product cards</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr><td>
+<table>
+<tr><td>F8 - Will be able to click an item to see more details (Product Details Page)</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663413-d1f188c8-9fca-454d-9941-d5375b69c9cb.png">
+<p>Screenshot of cart page, note the bottom left of the browser when mousing over the product "Ultra Ball"; previews link that will redirect the user to the product details page for "Ultra Ball"</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F9 - User will be able to change quantity of items in their cart (2021-12-10)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://sag48-prod.herokuapp.com/Project/cart.php](https://sag48-prod.herokuapp.com/Project/cart.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/stephaneg48/it202-009/pull/87](https://github.com/stephaneg48/it202-009/pull/87)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F9 - Quantity of 0 should also remove from cart</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663413-d1f188c8-9fca-454d-9941-d5375b69c9cb.png">
+<p>Screenshot of shop page</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663564-2ac727ce-0291-4e37-8d9a-d1f08c0b7352.png">
+<p>Screenshot of shop page after user modifies quantity of product "Ultra Ball" from 10 to 5</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663627-08c6c22d-6d13-40c1-aed3-3815c94a1f88.png">
+<p>Screenshot of shop page after user modifies quantity of product "Ultra Ball" from 5 to 0</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F10 - User will be able to remove a single item from their cart via button click (2021-12-10)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://sag48-prod.herokuapp.com/Project/cart.php](https://sag48-prod.herokuapp.com/Project/cart.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/stephaneg48/it202-009/pull/87](https://github.com/stephaneg48/it202-009/pull/87)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F10 - Demonstration</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663687-06c52411-1c07-4a73-acb5-727e3688da00.png">
+<p>Screenshot of cart page</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663701-cfaea13f-fae9-4bed-bb7b-d438d23af573.png">
+<p>Screenshot of cart page after clicking "Remove from Cart" under product "Hyper Potion"</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F11 - User will be able to clear their entire cart via a button click (2021-12-10)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://sag48-prod.herokuapp.com/Project/cart.php](https://sag48-prod.herokuapp.com/Project/cart.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/stephaneg48/it202-009/pull/87](https://github.com/stephaneg48/it202-009/pull/87)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F11 - Demonstration</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663763-93668ee1-5807-4d82-9aed-2e20eb124d06.png">
+<p>Screenshot of cart page with four products</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663805-1532b865-77ec-48b9-a57d-4d362c4e0877.png">
+<p>Screenshot of cart page after clicking "Remove All" button</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663832-8fd44e02-b579-404b-9418-84c6a67bd999.png">
+<p>Screenshot of VS Code with PHP code to remove all products from a user's cart highlighted</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/145663857-e821dfd3-45c5-4b69-a0de-29d7f3a892fe.png">
+<p>Screenshot of VS Code with HTML to remove all products from a user's cart highlighted</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr></td></tr></table>
 
 
-- Milestone 3
 
-- [ ] (mm/dd/yyyy of completion) User will be able to purchase items in their Cart
-  -  List of Evidence of Feature Completion
-    - Status: Pending (Completed, Partially working, Incomplete, Pending)
-    - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-    - Pull Requests
-      - PR link #1 (repeat as necessary)
-    - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
 
-- [ ] (mm/dd/yyyy of completion) Order Confirmation Page
-  -  List of Evidence of Feature Completion
-    - Status: Pending (Completed, Partially working, Incomplete, Pending)
-    - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-    - Pull Requests
-      - PR link #1 (repeat as necessary)
-    - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
+<table>
+<tr><td>Milestone 3</td></tr><tr><td>
+<table>
+<tr><td>F1 - User will be able to purchase items in their Cart (2021-12-19)</td></tr>
+<tr><td>Status: incomplete</td></tr>
+<tr><td>Links:<p>
 
-- [ ] (mm/dd/yyyy of completion) User will be able to see their Purchase History
-  -  List of Evidence of Feature Completion
-    - Status: Pending (Completed, Partially working, Incomplete, Pending)
-    - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-    - Pull Requests
-      - PR link #1 (repeat as necessary)
-    - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
+ [https://sag48-prod.herokuapp.com/Project/checkout.php](https://sag48-prod.herokuapp.com/Project/checkout.php)</p></td></tr>
+<tr><td>PRs:<p>
 
-- [ ] (mm/dd/yyyy of completion) Store Owner will be able to see all Purchase History
-  -  List of Evidence of Feature Completion
-    - Status: Pending (Completed, Partially working, Incomplete, Pending)
-    - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-    - Pull Requests
-      - PR link #1 (repeat as necessary)
-    - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
+ [https://github.com/stephaneg48/it202-009/pull/94](https://github.com/stephaneg48/it202-009/pull/94)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F1 - Create an Orders table (id, user_id, created, total_price, address, payment_method)</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/146817819-87b9971a-984e-44bb-b282-db313b45c9f5.png">
+<p>Screenshot of VS Code showing Orders table in database</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr><td>
+<table>
+<tr><td>F1 - Create an OrderItems table (id, order_id, product_id, quantity, unit_price)</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/146817924-2110a546-f4f7-4527-9c86-08197ce60702.png">
+<p>Screenshot of VS Code showing OrderItems table in database</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr><td>
+<table>
+<tr><td>F1 - Checkout Form</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/ff0000/000000?text=incomplete"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/146819805-0f9ebd29-dc47-47b8-8ff6-1daf32eb080d.png">
+<p>Screenshot showing checkout form (fields do not properly validate or get sanitized)</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr><td>
+<table>
+<tr><td>F1 - User will be asked for their Address for shipping purposes</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/ff0000/000000?text=incomplete"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/146819805-0f9ebd29-dc47-47b8-8ff6-1daf32eb080d.png">
+<p>Screenshot showing checkout form (fields do not properly validate or get sanitized)</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr><td>
+<table>
+<tr><td>F1 - Order process</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/ff0000/000000?text=incomplete"></td></tr>
+
+<tr><td>
+<img width="768px" src="">
+<p></p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F2 - Order Confirmation Page ()</td></tr>
+<tr><td>Status: incomplete</td></tr>
+<tr><td>Links:</td></tr>
+<tr><td>PRs:</td></tr>
+<tr><td>
+<table>
+<tr><td>F2 - item 1</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/ff0000/000000?text=incomplete"></td></tr>
+
+<tr><td>
+<img width="768px" src="">
+<p></p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F3 - User will be able to see their Purchase History ()</td></tr>
+<tr><td>Status: incomplete</td></tr>
+<tr><td>Links:</td></tr>
+<tr><td>PRs:</td></tr>
+<tr><td>
+<table>
+<tr><td>F3 - item 1</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/ff0000/000000?text=incomplete"></td></tr>
+
+<tr><td>
+<img width="768px" src="">
+<p></p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F4 - Store Owner will be able to see all Purchase History ()</td></tr>
+<tr><td>Status: incomplete</td></tr>
+<tr><td>Links:</td></tr>
+<tr><td>PRs:</td></tr>
+<tr><td>
+<table>
+<tr><td>F4 - item 1</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/ff0000/000000?text=incomplete"></td></tr>
+
+<tr><td>
+<img width="768px" src="">
+<p></p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr></td></tr></table>
 
 
 - Milestone 4
-
-- [ ] (mm/dd/yyyy of completion) User can set their profile to be public or private (will need another column in Users table)
-  -  List of Evidence of Feature Completion
-    - Status: Pending (Completed, Partially working, Incomplete, Pending)
-    - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-    - Pull Requests
-      - PR link #1 (repeat as necessary)
-    - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
-
-- [ ] (mm/dd/yyyy of completion) User will be able to rate a product they purchased
-  -  List of Evidence of Feature Completion
-    - Status: Pending (Completed, Partially working, Incomplete, Pending)
-    - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-    - Pull Requests
-      - PR link #1 (repeat as necessary)
-    - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
-
-- [ ] (mm/dd/yyyy of completion) User’s Purchase History Changes
-  -  List of Evidence of Feature Completion
-    - Status: Pending (Completed, Partially working, Incomplete, Pending)
-    - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-    - Pull Requests
-      - PR link #1 (repeat as necessary)
-    - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
-
-- [ ] (mm/dd/yyyy of completion) Store Owner Purchase History Changes
-  -  List of Evidence of Feature Completion
-    - Status: Pending (Completed, Partially working, Incomplete, Pending)
-    - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-    - Pull Requests
-      - PR link #1 (repeat as necessary)
-    - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
-
-- [ ] (mm/dd/yyyy of completion) Add pagination to Shop Page (and any other product lists not yet mentioned)
-  -  List of Evidence of Feature Completion
-    - Status: Pending (Completed, Partially working, Incomplete, Pending)
-    - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-    - Pull Requests
-      - PR link #1 (repeat as necessary)
-    - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
-
-- [ ] (mm/dd/yyyy of completion) Store Owner will be able to see all products out of stock
-  -  List of Evidence of Feature Completion
-    - Status: Pending (Completed, Partially working, Incomplete, Pending)
-    - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-    - Pull Requests
-      - PR link #1 (repeat as necessary)
-    - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
-
-- [ ] (mm/dd/yyyy of completion) User can sort products by average rating on the Shop Page
-  -  List of Evidence of Feature Completion
-    - Status: Pending (Completed, Partially working, Incomplete, Pending)
-    - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-    - Pull Requests
-      - PR link #1 (repeat as necessary)
-    - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
 
 ### Intructions
 #### Don't delete this
