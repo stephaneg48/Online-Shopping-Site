@@ -463,12 +463,15 @@
 
 
 
+
 <table>
 <tr><td>Milestone 3</td></tr><tr><td>
 <table>
-<tr><td>F1 - User will be able to purchase items in their Cart ()</td></tr>
+<tr><td>F1 - User will be able to purchase items in their Cart (2021-12-19)</td></tr>
 <tr><td>Status: incomplete</td></tr>
-<tr><td>Links:</td></tr>
+<tr><td>Links:<p>
+
+ [https://sag48-prod.herokuapp.com/Project/checkout.php](https://sag48-prod.herokuapp.com/Project/checkout.php)</p></td></tr>
 <tr><td>PRs:<p>
 
  [https://github.com/stephaneg48/it202-009/pull/94](https://github.com/stephaneg48/it202-009/pull/94)</p></td></tr>
@@ -479,8 +482,8 @@
 <img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
 
 <tr><td>
-<img width="768px" src="">
-<p></p>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/146817819-87b9971a-984e-44bb-b282-db313b45c9f5.png">
+<p>Screenshot of VS Code showing Orders table in database</p>
 </td></tr>
 
 </td>
@@ -495,8 +498,8 @@
 <img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
 
 <tr><td>
-<img width="768px" src="">
-<p></p>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/146817924-2110a546-f4f7-4527-9c86-08197ce60702.png">
+<p>Screenshot of VS Code showing OrderItems table in database</p>
 </td></tr>
 
 </td>
@@ -511,8 +514,8 @@
 <img width="100" height="20" src="https://via.placeholder.com/400x120/ff0000/000000?text=incomplete"></td></tr>
 
 <tr><td>
-<img width="768px" src="">
-<p></p>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/146819805-0f9ebd29-dc47-47b8-8ff6-1daf32eb080d.png">
+<p>Screenshot showing checkout form (fields do not properly validate or get sanitized)</p>
 </td></tr>
 
 </td>
@@ -527,8 +530,8 @@
 <img width="100" height="20" src="https://via.placeholder.com/400x120/ff0000/000000?text=incomplete"></td></tr>
 
 <tr><td>
-<img width="768px" src="">
-<p></p>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/146819805-0f9ebd29-dc47-47b8-8ff6-1daf32eb080d.png">
+<p>Screenshot showing checkout form (fields do not properly validate or get sanitized)</p>
 </td></tr>
 
 </td>
