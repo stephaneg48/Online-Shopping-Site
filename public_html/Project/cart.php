@@ -162,6 +162,7 @@ $cart_total = array_sum($cart_subtotals);
                         <?php if ($cart_total != 0) : ?>
                             <input type="hidden" name="uid" value="<?php se($item, 'user_id');?>"/>
                             <input type="submit" name="delete_all" value="Remove All" class="btn btn-primary"/>
+                            <a href="<?php echo get_url('checkout.php');?>" class="btn btn-success">Go to Checkout</a>
                         <?php endif; ?>
                     </form>
                 </div>
