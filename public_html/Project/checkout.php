@@ -48,12 +48,6 @@ $cart_total = array_sum($cart_subtotals);
 $stmt = "INSERT INTO OrderItems (product_id, quantity, unit_price, order_id) 
 SELECT product_id, desired_quantity, unit_price, :order_id FROM Cart WHERE user_id = $uid";
 
-// currently have cart...
-// display items from cart or display from orderitems?
-// on purchase, the above statement should run (i think)?
-// then the cart should be emptied, products (and shop, if stock runs out) should be updated...
-// then the user should be redirected to successful checkout page?
-
 ?>
 
 <div class="container-fluid">
