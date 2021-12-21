@@ -625,7 +625,13 @@
 <table>
 <tr><td>F1 - User can set their profile to be public or private (will need another column in Users table) (2021-12-19)</td></tr>
 <tr><td>Status: complete</td></tr>
-<tr><td>Links:</td></tr>
+<tr><td>Links:<p>
+
+ [https://sag48-prod.herokuapp.com/Project/profile.php](https://sag48-prod.herokuapp.com/Project/profile.php)</p><p>
+
+ [https://sag48-prod.herokuapp.com/Project/profile.php?edit=true](https://sag48-prod.herokuapp.com/Project/profile.php?edit=true)</p><p>
+
+ [https://sag48-prod.herokuapp.com/Project/profile.php?id=](https://sag48-prod.herokuapp.com/Project/profile.php?id=)</p></td></tr>
 <tr><td>PRs:<p>
 
  [https://github.com/stephaneg48/it202-009/pull/93](https://github.com/stephaneg48/it202-009/pull/93)</p></td></tr>
@@ -636,8 +642,28 @@
 <img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
 
 <tr><td>
-<img width="768px" src="">
-<p></p>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/146850564-0847d482-57d8-4b70-9d3e-2b6e3aee77d0.png">
+<p>Screenshot of profile, contains edit features behind edit button now and has some basic info about the user</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/146850700-6c4b6eca-903e-49fd-ac39-19a2a82c72ff.png">
+<p>Screenshot of profile while editing, now has public/private functionality; user has just set their profile to public</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/146850800-a22b1aae-eae9-4dbf-bbfe-50476abbe277.png">
+<p>Screenshot of profile of another user to verify that the previous user has been logged out</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/146850851-0bb2801f-e5ca-43f0-8f7f-dae7adec9b02.png">
+<p>Screenshot of VS Code to show all existing user IDs before demonstrating public profile, note the new visibility column and the IDs of the two users in the previous screenshots</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/90262925/146850941-f87b2fa7-f701-4cac-91cc-e6e558e42014.png">
+<p>Screenshot of the public profile of user "goose" while logged in as another user; the URL has changed, the Edit button is now missing and the public profile does not display the email of user "goose"</p>
 </td></tr>
 
 </td>
