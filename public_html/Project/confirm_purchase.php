@@ -55,7 +55,7 @@ else
     $date = date('Y-m-d H:i:s');
     similar_text($order_creation_time, $date, $percent);
 
-    if ($percent < 94.73684) // convoluted way of preventing user from browsing to this page
+    if ($percent < 89) // convoluted way of preventing user from browsing to this page
     {
         flash("You must complete a transaction to view this page", "warning");
         die(header("Location: home.php"));
