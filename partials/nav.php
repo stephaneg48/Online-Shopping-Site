@@ -48,10 +48,12 @@ require_once(__DIR__ . "/../lib/functions.php");
             <li><a href="<?php echo get_url('admin/assign_roles.php'); ?>">Assign Roles</a></li>
             <li><a href="<?php echo get_url('admin/add_product.php'); ?>">Add Product</a></li>
             <li><a href="<?php echo get_url('admin/edit_product.php'); ?>">Edit Product</a></li>
+            <li><a href="<?php echo get_url('admin/purchase_history.php'); ?>">View All Purchases</a></li>
         <?php endif; ?>
         <?php if (has_role("Shop Owner")) : // figure doing them separately is easier to look at ?>
             <li><a href="<?php echo get_url('admin/add_product.php'); ?>">Add Product</a></li>
             <li><a href="<?php echo get_url('admin/edit_product.php'); ?>">Edit Product</a></li>
+            <li><a href="<?php echo get_url('admin/purchase_history.php'); ?>">View All Purchases</a></li>
         <?php endif; ?>
         <?php if (is_logged_in()) : ?>
             <li><a href="<?php echo get_url('logout.php'); ?>">Logout</a></li>

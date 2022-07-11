@@ -1,17 +1,20 @@
 <?php
-require(__DIR__ . "/../../partials/nav.php");
+require(__DIR__ . "/../../../partials/nav.php");
 ?>
 
 <?php
 
 $order_items = [];
-$uid = get_user_id();
 
 $db = getDB();
-if (!is_logged_in() or empty($uid)) // add OK check so user cannot go to this page without making a purchase
+if (!is_logged_in()) // add OK check so user cannot go to this page without making a purchase
 {
     flash("You must be logged in to view this page", "warning");
     die(header("Location: login.php"));
+}
+if (!has_role("Admin") && !has_role("Shop Owner")) {
+    flash("You don't have permission to view this page", "warning");
+    die(header("Location: $BASE_PATH" . "home.php"));
 }
 else
 {
@@ -21,10 +24,9 @@ else
     {
         $order_id = se($_GET, "id", "", false);
     }
-    else
+    if(isset($_GET["user_id"]))
     {
-        flash("Purchase must exist to view purchase information", "warning");
-        die(header("Location: home.php"));
+        $uid = se($_GET, "user_id", "", false);
     }
     $stmt = $db->prepare("SELECT total_price, address, payment_method, created FROM Orders 
     WHERE id = :id AND user_id = :user_id");
@@ -61,6 +63,17 @@ else
             $product_names[] = $r;
         }
     }
+
+    $stmt = $db->prepare("SELECT username FROM Users where id = :id");
+
+    $stmt->execute([":id" => $uid]);
+
+    $r = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($r) {
+        $username = $r['username'];
+    }
+
+
 }
 
 ?>
@@ -80,7 +93,8 @@ else
 
                         <div class="card-body">
                             <?php
-                            echo "Your Address: $user_address<br>";
+                            echo "User: <a href='../profile.php?id=$uid'>$username</a>", "<br>";
+                            echo "Shipping Address: $user_address<br>";
                             echo "Payment Method: $payment_method<br>";
                             ?>
                         </div>
@@ -109,7 +123,7 @@ else
                                 $product_id = $order_items[$i]["product_id"];
                                 $product_name = $product_names[$i]["name"];
                                 $subtotal = $order_items[$i]["quantity"] * $order_items[$i]["unit_price"];
-                                echo ($i + 1), ". ", $order_items[$i]["quantity"], " of <a href='product.php?id=$product_id'>$product_name</a>", "<br>";
+                                echo ($i + 1), ". ", $order_items[$i]["quantity"], " of <a href='../product.php?id=$product_id'>$product_name</a>", "<br>";
                                 echo "Subtotal: ", $subtotal, "<br><br>";
                             }
                             ?>
@@ -127,6 +141,6 @@ else
 </div>
 
 <?php
-require(__DIR__."/../../partials/flash.php");
+require(__DIR__."/../../../partials/flash.php");
 ?>
 
