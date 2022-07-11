@@ -6,5 +6,5 @@ CREATE TABLE IF NOT EXISTS `Orders`(
     ,`payment_method` TEXT NOT NULL
     ,`created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     ,FOREIGN KEY (`user_id`) REFERENCES Users(id)
-    ,UNIQUE KEY (`user_id`)
+    ,UNIQUE KEY (`id`)
 )
