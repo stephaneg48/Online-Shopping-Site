@@ -1,12 +1,19 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php"); ?>
-<form onsubmit="return validate(this)" method="POST">
+<style>
+    .center {
+        padding: 280px 0;
+        text-align:center;
+    }
+</style>
+<form class="center" onsubmit="return validate(this)" method="POST">
+    <h2>Shopping Mall Nine</h2>
     <div>
         <label for="email">Username/Email</label>
         <input type="text" name="email" required />
     </div>
     <div>
-        <label for="pw">Password</label>
+        <label style="width:115px" for="pw">Password</label>
         <input type="password" id="pw" name="password" required minlength="8" />
     </div>
     <input type="submit" value="Login" />
@@ -99,7 +106,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                     }
                 } else {
                     //echo "Invalid email";
-                    flash("Email not found", "danger");
+                    flash("Username/Email not found", "danger");
                 }
             }
         } catch (Exception $e) {
