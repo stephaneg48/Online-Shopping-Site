@@ -1,7 +1,7 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php"); ?>
 <style>
-    .center {
+  .center {
         padding: 280px 0;
         text-align:center;
     }

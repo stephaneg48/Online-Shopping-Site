@@ -5,23 +5,33 @@ $email = se($_POST, "email", "", false);
 $username = se($_POST, "username", "", false);
 
 ?>
-<form onsubmit="return validate(this)" method="POST">
+
+<style>
+  .center {
+        padding: 280px 0;
+        text-align:center;
+    }
+</style>
+
+<form class="center" onsubmit="return validate(this)" method="POST">
+    <h2>Create Account</h2>
     <div>
-        <label for="email">Email</label>
+        <label style="width:126px" for="email">Email</label>
         <input type="email" name="email" required value="<?php se($email); ?>"/>
     </div>
     <div>
-        <label for="username">Username</label>
+        <label style="width:126px" for="username">Username</label>
         <input type="text" name="username" required maxlength="30" value="<?php se($username); ?>" />
     </div>
     <div>
-        <label for="pw">Password</label>
+        <label style="width:126px" for="pw">Password</label>
         <input type="password" id="pw" name="password" required minlength="8" />
     </div>
     <div>
-        <label for="confirm">Confirm</label>
+        <label for="confirm">Confirm Password</label>
         <input type="password" name="confirm" required minlength="8" />
     </div>
+    <br>
     <input type="submit" value="Register" />
 </form>
 <script>
