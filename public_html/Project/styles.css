@@ -3,7 +3,7 @@ body
     background-color: rgb(60, 100, 100);
 }
 
-nav ul li { 
+div nav ul li { 
     /* selects the links in a certain unordered
     list in some navigation
     (could specify it is in the body) */

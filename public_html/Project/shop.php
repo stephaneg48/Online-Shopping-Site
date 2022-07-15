@@ -34,8 +34,9 @@ if (!in_array($order, ["asc", "desc"])) {
     $order = "asc"; //default value, prevent sql injection
 }
 
-$query = "SELECT id, name, description, category, stock, unit_price, visibility FROM Products WHERE 1=1 AND visibility = 1 AND stock > 0";
-
+$base_query = "SELECT id, name, description, category, stock, unit_price, visibility FROM Products";
+$total_query = "SELECT count(1) AS total FROM Products";
+$query = " WHERE 1=1 AND visibility = 1 AND stock > 0";
 $name = se($_GET, "name", "", false);
 $cat = se($_GET, "category", "", false);
 $id = se($_GET, "id", "", false);
@@ -61,12 +62,24 @@ $params[":id"] = "$id";
 
 //apply column and order sort
 if (!empty($col) && !empty($order)) {
-    $query .= " ORDER BY $col $order LIMIT 10"; //be sure you trust these values, I validate via the in_array checks above
+    $query .= " ORDER BY $col $order"; //be sure you trust these values, I validate via the in_array checks above
 }
 
 error_log($query);
 // list visible products (based on filters, if any)...
-$stmt = $db->prepare($query); //dynamically generated query
+$per_page = 10;
+paginate($total_query . $query, $params, $per_page);
+$query .= " LIMIT :offset, :count";
+$params[":offset"] = $offset;
+$params[":count"] = $per_page;
+//get the records
+$stmt = $db->prepare($base_query . $query); //dynamically generated query
+//we'll want to convert this to use bindValue so ensure they're integers so lets map our array
+foreach ($params as $key => $value) {
+    $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+    $stmt->bindValue($key, $value, $type);
+}
+$params = null; //set it to null to avoid issues
 
 try {
     $stmt->execute($params); //dynamically populated params to bind
@@ -77,6 +90,7 @@ try {
 } catch (PDOException $e) {
     flash("<pre>" . var_export($e, true) . "</pre>");
 }
+
 ?>
 
 
@@ -171,10 +185,11 @@ try {
     </form>
     
     <div class="row row-cols-1 row-cols-md-5 g-4">
+        
         <?php if(count($results) == 0):?>
-            
-            <br></br>No results
+            <br></br>No results <!-- only for when products don't exist... -->
         <?php endif;?>
+
         <?php foreach ($results as $item) : ?>
             <div class="col">
                 <div class="card bg-light">
@@ -209,12 +224,15 @@ try {
                         
                     </div>
                 </div>
-            </div>
+            </div>       
+            
         <?php endforeach; ?>
+            
     </div>
 </div>
 
 <?php
 //note we need to go up 1 more directory
 require_once(__DIR__ . "/../../partials/flash.php");
+require_once(__DIR__ . "/../../partials/pagination.php");
 ?>
