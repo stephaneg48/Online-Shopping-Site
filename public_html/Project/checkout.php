@@ -20,6 +20,9 @@ $item_id = (int)se($_POST, "product_id", 0, false);
 $query = "SELECT Products.name, Cart.id, Cart.unit_price, Cart.product_id, user_id, desired_quantity, (Cart.unit_price * Cart.desired_quantity) as subtotal FROM Cart INNER JOIN Products ON Cart.product_id = Products.id WHERE user_id = $uid";
 $subtotal = 0;
 $cart_subtotals = [];
+$product_ids = [];
+$product_names = [];
+$desired_quantities = [];
 
 $stmt = $db->prepare($query); //dynamically generated query
 try {
@@ -36,6 +39,18 @@ try {
                 {
                     array_push($cart_subtotals,$value);
                 }
+                if($detail == "product_id")
+                {
+                    array_push($product_ids,$value);
+                }
+                if($detail == "name")
+                {
+                    array_push($product_names,$value);
+                }
+                if($detail == "desired_quantity")
+                {
+                    array_push($desired_quantities,$value);
+                }
             }
             
         }
@@ -45,83 +60,39 @@ try {
 
 $cart_total = array_sum($cart_subtotals);
 
-?>
+// using the product ids for each item, get the current stock for each item
+// if any product's desired quantity exceeds the available stock, alert the user
+// alert should tell user to go to the product details page for that product and adjust how much they want
+// submit button should be disabled if the user is alerted
 
-<script>
-    function makePurchase(event, items, uid) {
-        event.preventDefault();
-        var checkTotal = document.getElementById("cartTotal").getAttribute('value');
-        var confirm = document.getElementById("confirmorder").value;
+$desired_exceeds_stock = false;
+$bad_product = ""; 
+// name of product that has desired quantity that exceed the stock
 
-        emptyFieldCheck = 0;
-        // check required fields and purchase confirmation
-        let fields = {
-            firstname: document.getElementById("firstname").value,
-            lastname: document.getElementById("lastname").value,
-            user_address: document.getElementById("address").value,
-            city: document.getElementById("city").value,
-            state: document.getElementById("state").value,
-            country: document.getElementById("country").value,
-            zipcode: document.getElementById("zipcode").value
-        };
+for($i = 0; $i < count($product_ids); $i++)
+{
+    $current_product_stock = 0;
+    $current_product_name = $product_names[$i];
+    $current_product_id = $product_ids[$i];
+    $current_product_desired_quantity = $desired_quantities[$i];
+    $stmt = $db->prepare("SELECT stock FROM Products WHERE id=:id");
 
-        for (const key in fields)
-        {
-            const value = fields[key];
-            if (value === "")
-            {
-                emptyFieldCheck += 1;
-            }
-        }
-
-        if (emptyFieldCheck != 0)
-        {
-            window.alert("Please fill in all required fields.");
-        }
-        else if (confirm != checkTotal)
-        {
-            window.alert("To complete the purchase, please enter your cart total into the Purchase Confirmation field.");
-        }
-        else // safe to complete
-        {
-            var product_info = [];
-            items = document.getElementById("items").children;
-            for (var i = 0; i < items.length; i++)
-            {
-                item = items[i];
-                item_id = item.querySelector("#item_id").value;
-                item_quantity = item.querySelector("#item_quantity").getAttribute('value');
-                item_unit_price = item.querySelector("#item_cost").getAttribute('value');
-                product_info[i] = [item_id, item_quantity, item_unit_price];
-            }
-            //console.log(product_info);
-            
-            let data = {
-                userid: uid,
-                products: product_info,
-                total: checkTotal, // divs do not have value property, so .value will not work, use getAttribute
-                address: document.getElementById("address").value,
-                method: document.getElementById("methodSelect").value
-            }
-            console.log(data);
-            let http = new XMLHttpRequest();
-            http.open("POST", "api/purchase_cart.php", true);
-            http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            http.onreadystatechange = function() {
-                if (http.readyState == 4) {
-                    if (http.status === 200) {
-                        //console.log(http.responseText);
-                        window.location.href="./confirm_purchase.php";
-                    }
-                }
-                
-            }
-            
-            http.send("json=" + encodeURIComponent(JSON.stringify(data))); 
-            //TODO create JS helper to update all show-balance elements
-        }
+    $stmt->execute([":id" => $current_product_id]); 
+    $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if ($r) {
+        $current_product_stock = $r[0]["stock"]; // expecting one result...
     }
-</script>
+
+    if ($current_product_desired_quantity > $current_product_stock)
+    {
+        // alert the user multiple times if they attempt to do this for multiple products
+        $desired_exceeds_stock = true;
+        $bad_product = $current_product_name;
+        break;
+    }
+}
+
+?>
 
 <div class="container-fluid">
     <h1>Checkout</h1>
@@ -232,7 +203,11 @@ $cart_total = array_sum($cart_subtotals);
                         }
                     </style>
                 </div>
-                <button type="submit" onclick="makePurchase(event, items, <?php echo get_user_id(); ?>)" class="btn btn-success">Submit</button> 
+                <?php if ($desired_exceeds_stock == false) : ?>
+                    <button id="purchase" type="submit" onclick="makePurchase(event, items, <?php echo get_user_id(); ?>)" class="btn btn-success">Submit</button> 
+                <?php else : // put the value in the disabled button so js can take it out... simple enough ?>
+                    <button id="purchase" type="submit" value="<?php echo $bad_product; ?>" class="btn btn-secondary" disabled>Submit</button> 
+                <?php endif; ?>
                 <!-- echo so the value gets stored in submit -->
 </form>
             </div>
@@ -254,4 +229,92 @@ $cart_total = array_sum($cart_subtotals);
 <?php
 require(__DIR__."/../../partials/flash.php");
 ?>
+
+<script>
+    // first, check if any desired quantities are bad before allowing the user to submit the form
+    // how to check? the submit button will be disabled
+    // if it's disabled, alert the user
+    var submitButton = document.querySelector("#purchase");
+    console.log(submitButton);
+    if (submitButton.disabled == true)
+    {
+        flash("ATTENTION: The quantity of " + submitButton.value + " that you are attempting to purchase exceeds the available stock.","warning");
+        flash("Please refer to the product details page and adjust the quantity in your cart.","warning");
+    }
+
+    function makePurchase(event, items, uid) {
+        event.preventDefault();
+        var checkTotal = document.getElementById("cartTotal").getAttribute('value');
+        var confirm = document.getElementById("confirmorder").value;
+
+        emptyFieldCheck = 0;
+        // check required fields and purchase confirmation
+        let fields = {
+            firstname: document.getElementById("firstname").value,
+            lastname: document.getElementById("lastname").value,
+            user_address: document.getElementById("address").value,
+            city: document.getElementById("city").value,
+            state: document.getElementById("state").value,
+            country: document.getElementById("country").value,
+            zipcode: document.getElementById("zipcode").value
+        };
+
+        for (const key in fields)
+        {
+            const value = fields[key];
+            if (value === "")
+            {
+                emptyFieldCheck += 1;
+            }
+        }        
+        if (emptyFieldCheck != 0)
+        {
+            window.alert("Please fill in all required fields.");
+        }
+        else if (confirm != checkTotal)
+        {
+            window.alert("To complete the purchase, please enter your cart total into the Purchase Confirmation field.");
+        }
+        else // safe to complete
+        {
+            var product_info = [];
+            items = document.getElementById("items").children;
+            for (var i = 0; i < items.length; i++)
+            {
+                item = items[i];
+                item_id = item.querySelector("#item_id").value;
+                item_quantity = item.querySelector("#item_quantity").getAttribute('value');
+                item_unit_price = item.querySelector("#item_cost").getAttribute('value');
+                product_info[i] = [item_id, item_quantity, item_unit_price];
+            }
+            //console.log(product_info);
+            
+            let data = {
+                userid: uid,
+                products: product_info,
+                total: checkTotal, // divs do not have value property, so .value will not work, use getAttribute
+                address: document.getElementById("address").value,
+                method: document.getElementById("methodSelect").value
+            }
+            console.log(data);
+            let http = new XMLHttpRequest();
+            http.open("POST", "api/purchase_cart.php", true);
+            http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            http.onreadystatechange = function() {
+                if (http.readyState == 4) {
+                    if (http.status === 200) {
+                        //console.log(http.responseText);
+                        window.location.href="./confirm_purchase.php";
+                    }
+                }
+                
+            }
+            
+            http.send("json=" + encodeURIComponent(JSON.stringify(data))); 
+            //TODO create JS helper to update all show-balance elements
+        }
+    }
+</script>
+
+
 

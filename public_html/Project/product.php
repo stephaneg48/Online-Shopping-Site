@@ -144,16 +144,28 @@ if(!in_array($uid,$ids_of_buyers))
             }
         }
         http.open("POST", "api/add_to_cart.php", true);
-        let data = {
+
+        let quantity_check = document.querySelector("#item_current_stock").getAttribute('value');
+        let desired_quantity = event.target.parentElement.quantity.value;
+        if (quantity_check - desired_quantity < 0)
+        {
+            window.alert("The quantity of " + name + " that you are attempting to add to your cart exceeds the current stock.\nPlease lower the desired quantity.")
+        }
+        else
+        {
+            let data = {
             prodname: name,
             item_id: item,
             cost: cost,
-            quantity: event.target.parentElement.quantity.value
+            quantity: desired_quantity
+            }
+            console.log(data);
+            let q = Object.keys(data).map(key => key + '=' + data[key]).join('&');
+            console.log(q)
+            http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            http.send(q);
         }
-        let q = Object.keys(data).map(key => key + '=' + data[key]).join('&');
-        console.log(q)
-        http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        http.send(q);
+        
         //TODO create JS helper to update all show-balance elements
     }
 
@@ -245,7 +257,7 @@ if(!in_array($uid,$ids_of_buyers))
                     <?php endif;?>
 
                     <?php if ($i = 5): ?>
-                        <div class="card-footer">
+                        <div id="item_current_stock" class="card-footer" value=<?php se($result, "stock"); ?>>
                         Stock: <?php se($result, "stock"); ?>
                         </div>
                     <?php endif;?>
@@ -256,7 +268,7 @@ if(!in_array($uid,$ids_of_buyers))
                         Average User Rating: <?php echo $average_rating; ?> 
                         <?php if (is_logged_in()) : ?>
                                 <br><label for="quantity">Quantity:</label>
-                                <input type="number" max="99" id="quantity" name="quantity" value="<?php se($quantity); ?>" style="width:50px"></input><br><br>
+                                <input type="number" max="99" id="quantity" name="quantity" value="<?php se($quantity); ?>" style="width:50px" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></input><br><br>
                                 <button onclick="add_to_cart(event, '<?php se($result, 'name'); ?>', '<?php se($result, 'id'); ?>', '<?php se($result, 'unit_price'); ?>', 1)" class="btn btn-primary">Add to Cart</button>
                             <!-- four parameters: name, item id, cost, quantity -->
                         <?php endif; ?>
@@ -315,7 +327,18 @@ Rating:
             
             <?php for ($i = 0; $i < count($usernames); $i++) : ?>
                 <tr>
-                    <td style="width:fit-content"><?php echo $usernames[$i]; ?></td>
+                    <td style="width:fit-content">
+
+                    <?php 
+                    $username = $usernames[$i]; 
+                    $comment_user_id = $user_ids[$i]; 
+                    if ($comment_user_id == $uid)
+                        echo "<a href='./profile.php'>$username</a>";
+                    else
+                        echo "<a href='./profile.php?id=$comment_user_id'>$username</a>";
+                    ?>
+                    
+                    </td>
                     <td style="width:1%"><?php echo $comments[$i]; ?></td>
                     <td style="width:1%"><?php echo "$ratings[$i]/5"; ?></td>
                     <input hidden id="" value=<?php ?> ></input>

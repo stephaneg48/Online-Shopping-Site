@@ -128,7 +128,7 @@ $cart_total = array_sum($cart_subtotals);
                             <label for="cost" name="cost"></label>Cost: <?php se($item, "unit_price"); ?>
                             <?php if (is_logged_in()) : ?>
                                 <br><label for="quantity">Quantity:</label>
-                                <input type="number" min="0" max="99" id="quantity" name="quantity" value="<?php se($item, "desired_quantity"); ?>" style="width:50px"></input><br><br>
+                                <input type="number" min="0" max="99" id="quantity" name="quantity" value="<?php se($item, "desired_quantity"); ?>" style="width:50px" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></input><br><br>
                                 <button onclick="add_to_cart(event, '<?php se($item, 'name'); ?>', '<?php (int)se($item, 'product_id'); ?>', '<?php se($item, 'unit_price'); ?>', 1)" class="btn btn-primary">Update</button>
                                 <input type="hidden" name="cart_id" value="<?php se($item, 'id');?>"/>
                                 <input type="submit" name="delete" value="Remove from Cart" class="btn btn-primary"/>
