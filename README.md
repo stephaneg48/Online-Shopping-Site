@@ -34,7 +34,7 @@ The purpose of this project was to create a simple e-commerce site for users.
 
 Site functionality was implemented through SQL, PHP, JavaScript, and HTML. 
 
-# [The full site can be viewed here (redirects to Heroku deploy).](https://sag48-prod.herokuapp.com/Project/index.php)
+# [The full site can be viewed here (redirects to Heroku deploy).](https://sag48-dev.herokuapp.com/Project/index.php)
 > # Additional Heroku Setup
 
 - 08/30/2021: removed .htaccess and updated Procfile to use public_html as docroot
