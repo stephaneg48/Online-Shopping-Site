@@ -32,7 +32,7 @@ The purpose of this project was to create a simple e-commerce site for users.
 
 ![](/screenshots/Administrator%20Viewing%20Existing%20Roles.png)
 
-Site functionality was implemented through SQL, PHP, JavaScript, and HTML. 
+Site functionality was implemented through SQL, PHP, JavaScript, and HTML.  
 
 # [The full site can be viewed here (redirects to Heroku deploy).](https://sag48-dev.herokuapp.com/Project/index.php)
 > # Additional Heroku Setup
